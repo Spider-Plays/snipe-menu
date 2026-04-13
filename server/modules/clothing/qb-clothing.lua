@@ -1,6 +1,6 @@
 if Config.Clothing ~= "qb-clothing" then return end
 
-RegisterServerEvent('snipe-menu:server:giveClothes', function(otherPlayerId)
+RegisterServerEvent('sp-adminmenu:server:giveClothes', function(otherPlayerId)
     local src = source
     if src ~= 0 and onlineAdmins[src] then
         SendLogs(src, "triggered", Config.Locales["give_clothes_used"]..GetPlayerName(otherPlayerId))
@@ -10,7 +10,7 @@ RegisterServerEvent('snipe-menu:server:giveClothes', function(otherPlayerId)
     end
 end)
 
-RegisterServerEvent("snipe-menu:server:giveOutfits", function(id)
+RegisterServerEvent("sp-adminmenu:server:giveOutfits", function(id)
     local src = source
     if src ~= 0 and onlineAdmins[src] then
         TriggerClientEvent("qb-clothing:client:openOutfitMenu", id)

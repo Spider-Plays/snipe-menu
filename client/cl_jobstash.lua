@@ -130,7 +130,7 @@ local propMovingData = nil
 
 function PlaceObject(rotation, position, heading)
     if isMovingProp then
-        TriggerServerEvent("snipe-menu:server:moveObject", rotation, heading, position, propMovingData)
+        TriggerServerEvent("sp-adminmenu:server:moveObject", rotation, heading, position, propMovingData)
         isMovingProp = false
         propMovingData = nil
     else
@@ -172,17 +172,17 @@ function PutJobStash(model, rotation, heading, jobName, stashSize, stashSlots, s
     isPlacing = false
     
     if canPlace then
-        TriggerServerEvent("snipe-menu:server:putNewJobStash", 
+        TriggerServerEvent("sp-adminmenu:server:putNewJobStash", 
             rotation, model, heading, jobName, stashSize, stashSlots, stashName, 
             stashLabel, isForJob, isForGang)
     end
 end
 
-RegisterNetEvent("snipe-menu:client:addNewJobStash", function(propData)
+RegisterNetEvent("sp-adminmenu:client:addNewJobStash", function(propData)
     PropTable[#PropTable + 1] = propData
 end)
 
-RegisterNetEvent("snipe-menu:client:updateObject", function(propId, coords, heading, rotation)
+RegisterNetEvent("sp-adminmenu:client:updateObject", function(propId, coords, heading, rotation)
     for _, propData in pairs(PropTable) do
         if propData.id == propId then
             propData.coords = coords
@@ -285,12 +285,12 @@ RegisterNUICallback("setJobStash", function(data, cb)
             return
         end
         
-        TriggerEvent("snipe-menu:client:forceCloseAdminMenu")
+        TriggerEvent("sp-adminmenu:client:forceCloseAdminMenu")
         cb("ok")
         
         StartPlacingThread(DEFAULT_PROP_MODEL, jobId, stashSize, stashSlots, true, false)
     else
-        TriggerServerEvent("snipe-menu:server:sendLogs", "exploit", Config.Locales.job_stash_exploit)
+        TriggerServerEvent("sp-adminmenu:server:sendLogs", "exploit", Config.Locales.job_stash_exploit)
     end
 end)
 
@@ -310,18 +310,18 @@ RegisterNUICallback("setGangStash", function(data, cb)
             return
         end
         
-        TriggerEvent("snipe-menu:client:forceCloseAdminMenu")
+        TriggerEvent("sp-adminmenu:client:forceCloseAdminMenu")
         cb("ok")
         
         StartPlacingThread(DEFAULT_PROP_MODEL, gangId, stashSize, stashSlots, false, true)
     else
-        TriggerServerEvent("snipe-menu:server:sendLogs", "exploit", Config.Locales.job_stash_exploit)
+        TriggerServerEvent("sp-adminmenu:server:sendLogs", "exploit", Config.Locales.job_stash_exploit)
     end
 end)
 
 RegisterNUICallback("spawnObject", function(data, cb)
     if hasAdminPerms then
-        TriggerEvent("snipe-menu:client:forceCloseAdminMenu")
+        TriggerEvent("sp-adminmenu:client:forceCloseAdminMenu")
         cb("ok")
         
         if IsModelInCdimage(data.objectName) then
@@ -331,7 +331,7 @@ RegisterNUICallback("spawnObject", function(data, cb)
             cb("ok")
         end
     else
-        TriggerServerEvent("snipe-menu:server:sendLogs", "exploit", Config.Locales.job_stash_exploit)
+        TriggerServerEvent("sp-adminmenu:server:sendLogs", "exploit", Config.Locales.job_stash_exploit)
     end
 end)
 

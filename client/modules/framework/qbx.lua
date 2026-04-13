@@ -109,5 +109,5 @@ function ShowNotification(msg, type)
 end
 
 function BennyOpen()
-    TriggerServerEvent("snipe-menu:server:toggleBennys")
+    TriggerServerEvent("sp-adminmenu:server:toggleBennys")
 end

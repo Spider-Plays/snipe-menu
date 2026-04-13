@@ -11,7 +11,7 @@ RegisterNUICallback("toggleBennys", function(data, cb)
             cb("ok")
         end
     else
-        TriggerServerEvent("snipe-menu:server:sendLogs", "exploit", Config.Locales.toggle_benny_exploit)
+        TriggerServerEvent("sp-adminmenu:server:sendLogs", "exploit", Config.Locales.toggle_benny_exploit)
     end
 end)
 
@@ -53,13 +53,13 @@ RegisterNUICallback("changePlate", function(data, cb)
         local currentPlate = GetPlate(GetVehicleNumberPlateText(vehicle))
         
         if vehicle ~= 0 then
-            TriggerServerEvent("snipe-menu:server:changePlate", currentPlate, string.upper(data.plateNumber))
+            TriggerServerEvent("sp-adminmenu:server:changePlate", currentPlate, string.upper(data.plateNumber))
         else
             ShowNotification("You are not in vehicle", "error")
         end
         cb("ok")
     else
-        TriggerServerEvent("snipe-menu:server:sendLogs", "exploit", Config.Locales.announce_exploit)
+        TriggerServerEvent("sp-adminmenu:server:sendLogs", "exploit", Config.Locales.announce_exploit)
     end
 end)
 
@@ -95,12 +95,12 @@ RegisterNUICallback("givecar", function(data, cb)
         vehicleType = GetVehicleTypeFromHash(hash, veh)
         vehicleData.props = GetVehicleProperties(vehicle)
         
-        TriggerServerEvent("snipe-menu:server:givecar", tonumber(targetId), vehicleModel, vehicleData, vehicleType)
+        TriggerServerEvent("sp-adminmenu:server:givecar", tonumber(targetId), vehicleModel, vehicleData, vehicleType)
         DeleteEntity(vehicle)
         DeleteVehicle(vehicle)
         cb("ok")
     else
-        TriggerServerEvent("snipe-menu:server:sendLogs", "exploit", Config.Locales.give_car_exploit)
+        TriggerServerEvent("sp-adminmenu:server:sendLogs", "exploit", Config.Locales.give_car_exploit)
     end
 end)
 
@@ -119,7 +119,7 @@ RegisterNUICallback("spawncardata", function(data, cb)
         SpawnCar(vehicleModel, maxMods, seatValue)
         cb("ok")
     else
-        TriggerServerEvent("snipe-menu:server:sendLogs", "exploit", Config.Locales.spawn_car_exploit)
+        TriggerServerEvent("sp-adminmenu:server:sendLogs", "exploit", Config.Locales.spawn_car_exploit)
     end
 end)
 
@@ -169,7 +169,7 @@ RegisterNUICallback("givekeys", function(data, cb)
         end
         cb("ok")
     else
-        TriggerServerEvent("snipe-menu:server:sendLogs", "exploit", Config.Locales.spawn_car_exploit)
+        TriggerServerEvent("sp-adminmenu:server:sendLogs", "exploit", Config.Locales.spawn_car_exploit)
     end
 end)
 
@@ -177,7 +177,7 @@ end)
 RegisterNUICallback("getAllOutsideVehicles", function(data, cb)
     local p = promise.new()
     
-    TriggerCallback("snipe-menu:server:getOutsideVehicles", function(result)
+    TriggerCallback("sp-adminmenu:server:getOutsideVehicles", function(result)
         p:resolve(result)
     end)
     
@@ -188,7 +188,7 @@ end)
 -- NUI Callback: Change vehicle state
 RegisterNUICallback("changeVehicleState", function(data, cb)
     if hasAdminPerms then
-        TriggerServerEvent("snipe-menu:server:changeVehicleState", data.selectedPlayer.name)
+        TriggerServerEvent("sp-adminmenu:server:changeVehicleState", data.selectedPlayer.name)
         cb("ok")
     end
 end)
@@ -206,7 +206,7 @@ RegisterNUICallback("addAdminCar", function(data, cb)
             local vehicleType = GetVehicleTypeFromHash(vehicleHash, vehicle)
             
             if vehicleName then
-                TriggerServerEvent("snipe-menu:server:addAdminCar", vehicleName, vehicleData, vehicleType)
+                TriggerServerEvent("sp-adminmenu:server:addAdminCar", vehicleName, vehicleData, vehicleType)
                 cb("ok")
             else
                 ShowNotification(Config.Locales.vehicle_not_present, "error")
@@ -217,12 +217,12 @@ RegisterNUICallback("addAdminCar", function(data, cb)
             cb("ok")
         end
     else
-        TriggerServerEvent("snipe-menu:server:sendLogs", "exploit", Config.Locales.admin_car_exploit)
+        TriggerServerEvent("sp-adminmenu:server:sendLogs", "exploit", Config.Locales.admin_car_exploit)
     end
 end)
 
 -- Event: Add admin car (command triggered)
-RegisterNetEvent("snipe-menu:client:addAdminCar", function()
+RegisterNetEvent("sp-adminmenu:client:addAdminCar", function()
     if hasAdminPerms then
         if IsPedInAnyVehicle(PlayerPedId(), false) then
             local vehicle = GetVehiclePedIsIn(PlayerPedId(), false)
@@ -234,7 +234,7 @@ RegisterNetEvent("snipe-menu:client:addAdminCar", function()
             local vehicleType = GetVehicleTypeFromHash(vehicleHash, vehicle)
             
             if vehicleName then
-                TriggerServerEvent("snipe-menu:server:addAdminCar", vehicleName, vehicleData, vehicleType)
+                TriggerServerEvent("sp-adminmenu:server:addAdminCar", vehicleName, vehicleData, vehicleType)
                 return
             else
                 ShowNotification(Config.Locales.vehicle_not_present, "error")
@@ -245,6 +245,6 @@ RegisterNetEvent("snipe-menu:client:addAdminCar", function()
             return
         end
     else
-        TriggerServerEvent("snipe-menu:server:sendLogs", "exploit", Config.Locales.admin_car_exploit)
+        TriggerServerEvent("sp-adminmenu:server:sendLogs", "exploit", Config.Locales.admin_car_exploit)
     end
 end)

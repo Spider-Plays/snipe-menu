@@ -1,6 +1,6 @@
 local function isDevMode(source)
     if source == nil then 
-        print("snipe-menu: isDevMode() source is nil")
+        print("sp-adminmenu: isDevMode() source is nil")
         return false 
     end
     return devMode[source]

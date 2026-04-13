@@ -699,7 +699,7 @@ async function De(r, e = {}) {
             },
             body: JSON.stringify(e)
         },
-        n = "snipe-menu";
+        n = "sp-adminmenu";
     try {
         return await (await fetch(`https://${n}/${r}`, t)).json()
     } catch {}

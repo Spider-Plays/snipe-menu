@@ -84,7 +84,7 @@ local function StopNoClip()
         -- RemoveInvisibleEffect()
         isInvisible = false
         Wait(100)
-        TriggerEvent("snipe-menu:client:invisibleEffect")
+        TriggerEvent("sp-adminmenu:client:invisibleEffect")
     end
 
     SetPoliceIgnorePlayer(ped, true)
@@ -256,7 +256,7 @@ function ToggleNoClip(forceMode)
     inputRotEnabled = IsNoClipping
     if IsNoClipping then
         enabledButtons[#enabledButtons + 1] = "NoClip"
-        TriggerServerEvent("snipe-menu:server:sendLogs", "triggered", Config.Locales["noclip_used"])
+        TriggerServerEvent("sp-adminmenu:server:sendLogs", "triggered", Config.Locales["noclip_used"])
     else
         for i = 1, #enabledButtons do
             if enabledButtons[i] == "NoClip" then

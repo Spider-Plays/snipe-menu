@@ -11,10 +11,10 @@ end
 
 RegisterNUICallback("saveModeratorCommands", function(data, callback)
     if hasAdminPerms then
-        TriggerServerEvent("snipe-menu:server:saveModeratorCommands", data.selectedValues, data.role)
+        TriggerServerEvent("sp-adminmenu:server:saveModeratorCommands", data.selectedValues, data.role)
         callback("ok")
     else
-        TriggerServerEvent("snipe-menu:server:sendLogs", "exploit", "Tried to save moderator commands")
+        TriggerServerEvent("sp-adminmenu:server:sendLogs", "exploit", "Tried to save moderator commands")
     end
 end)
 
@@ -22,7 +22,7 @@ RegisterNUICallback("getRoleWisePanels", function(data, callback)
     local roleLabel = data.role
 
     local p = promise.new()
-    TriggerCallback("snipe-menu:server:getRoleWisePanelsWithLabel", function(result)
+    TriggerCallback("sp-adminmenu:server:getRoleWisePanelsWithLabel", function(result)
         p:resolve(result)
     end, roleLabel)
 
@@ -59,14 +59,14 @@ RegisterNUICallback("givePerms", function(data, callback)
     local targetId = data.selectedPlayer.id
     local roleId = data.selectedItem.id
 
-    TriggerServerEvent("snipe-menu:server:givePerms", targetId, roleId)
+    TriggerServerEvent("sp-adminmenu:server:givePerms", targetId, roleId)
     callback("ok")
 end)
 
 RegisterNUICallback("getAdmins", function(data, callback)
     local p = promise.new()
 
-    TriggerCallback("snipe-menu:server:getAdmins", function(result)
+    TriggerCallback("sp-adminmenu:server:getAdmins", function(result)
         p:resolve(result)
     end)
 
@@ -75,19 +75,19 @@ RegisterNUICallback("getAdmins", function(data, callback)
 end)
 
 RegisterNUICallback("removeRoles", function(data, callback)
-    TriggerServerEvent("snipe-menu:server:removeRoles", data.selectedValue.id)
+    TriggerServerEvent("sp-adminmenu:server:removeRoles", data.selectedValue.id)
     callback("ok")
 end)
 
 AddEventHandler("onResourceStart", function(resourceName)
-    if resourceName ~= "snipe-menu" then return end
+    if resourceName ~= "sp-adminmenu" then return end
 
     Wait(1000)
-    TriggerServerEvent("snipe-menu:server:playerLoaded")
+    TriggerServerEvent("sp-adminmenu:server:playerLoaded")
 
     -- Load prop tables
     local p = promise.new()
-    TriggerCallback("snipe-menu:server:getTables", function(result)
+    TriggerCallback("sp-adminmenu:server:getTables", function(result)
         p:resolve(result)
     end)
     PropTable = Citizen.Await(p)
@@ -96,7 +96,7 @@ AddEventHandler("onResourceStart", function(resourceName)
     -- Load admin permissions if not using admin duty system
     if not Config.AdminDuty then
         local permPromise = promise.new()
-        TriggerCallback("snipe-menu:server:getAdminPerms", function(result)
+        TriggerCallback("sp-adminmenu:server:getAdminPerms", function(result)
             permPromise:resolve(result)
         end)
 
@@ -106,11 +106,11 @@ AddEventHandler("onResourceStart", function(resourceName)
         userRole = perms[3] or "God"
         isGod = perms[4]
 
-        TriggerEvent("snipe-menu:client:addkeymapping", hasAdminPerms)
+        TriggerEvent("sp-adminmenu:client:addkeymapping", hasAdminPerms)
     end
 end)
 
-lib.callback.register("snipe-menu:server:confirmGivePerms", function(targetId, roleId, playerName)
+lib.callback.register("sp-adminmenu:server:confirmGivePerms", function(targetId, roleId, playerName)
     local result = lib.alertDialog({
         header = "Admin Confirmation",
         content = "Are you sure you want to give " .. playerName .. "(" .. targetId .. ") the role of " .. roleId .. "?",

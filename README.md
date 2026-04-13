@@ -46,7 +46,7 @@ If using `qb-weathersync`, update the `isAllowedToChange()` function in `qb-weat
 
 ```lua
 local function isAllowedToChange(src)
-    if src == 0 or QBCore.Functions.HasPermission(src, "admin") or IsPlayerAceAllowed(src, 'command') or exports["snipe-menu"]:isAdmin(src) then
+    if src == 0 or QBCore.Functions.HasPermission(src, "admin") or IsPlayerAceAllowed(src, 'command') or exports["sp-adminmenu"]:isAdmin(src) then
         return true
     end
     return false
@@ -57,7 +57,7 @@ end
 Add this event to `illenium-appearance/client/framework/esx/compatibility.lua`:
 
 ```lua
-RegisterNetEvent("snipe-menu:client:openAppearance", function()
+RegisterNetEvent("sp-adminmenu:client:openAppearance", function()
     local config = GetDefaultConfig()
     config.ped = true
     config.headBlend = true
@@ -122,7 +122,7 @@ eg. ["dev"] = "Admin",         -- Admin access level
 ### Keybinds Configuration
 Before deployment, review `client/open/cl_keybinds.lua`:
 - Keybinds can be modified in-game via Settings
-- Navigate to: GTA 5 Settings → Keybinds → FiveM → snipe-menu
+- Navigate to: GTA 5 Settings → Keybinds → FiveM → sp-adminmenu
 - Keybinds only work when Dev Mode is enabled (God roles only)
 - Recommendation: Use mouse keys for delete laser for easier multi-key access
 
@@ -177,12 +177,12 @@ Check if a player is in Dev Mode:
 
 **Client:**
 ```lua
-exports["snipe-menu"]:isDevMode()
+exports["sp-adminmenu"]:isDevMode()
 ```
 
 **Server:**
 ```lua
-exports["snipe-menu"]:isDevMode(source)  -- source = player ID
+exports["sp-adminmenu"]:isDevMode(source)  -- source = player ID
 ```
 
 ### Admin Permission Exports
@@ -190,19 +190,19 @@ Check if a player has Admin permissions:
 
 **Client:**
 ```lua
-exports["snipe-menu"]:isAdmin()
+exports["sp-adminmenu"]:isAdmin()
 ```
 
 **Server:**
 ```lua
-exports["snipe-menu"]:isAdmin(source)  -- source = player ID
+exports["sp-adminmenu"]:isAdmin(source)  -- source = player ID
 ```
 
 ### Spectate Export
 Check if a player is spectating:
 
 ```lua
-exports["snipe-menu"]:isInSpectating()
+exports["sp-adminmenu"]:isInSpectating()
 ```
 
 ### Admin Role Name Export
@@ -210,7 +210,7 @@ Get the admin role name for a player:
 
 **Server:**
 ```lua
-exports["snipe-menu"]:GetAdminRoleName(source)  -- source = player ID
+exports["sp-adminmenu"]:GetAdminRoleName(source)  -- source = player ID
 ```
 
 ---

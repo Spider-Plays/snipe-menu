@@ -73,10 +73,10 @@ RegisterNUICallback("kickPlayer", function(data, cb)
         local reason = data.inputValue
         local targetId = tonumber(data.selectedValue.id)
         
-        TriggerServerEvent("snipe-menu:server:kickPlayer", targetId, reason)
+        TriggerServerEvent("sp-adminmenu:server:kickPlayer", targetId, reason)
         cb("ok")
     else
-        TriggerServerEvent("snipe-menu:server:sendLogs", "exploit", Config.Locales.kick_player_exploit_event)
+        TriggerServerEvent("sp-adminmenu:server:sendLogs", "exploit", Config.Locales.kick_player_exploit_event)
     end
 end)
 
@@ -85,10 +85,10 @@ RegisterNUICallback("warnPlayer", function(data, cb)
         local reason = data.inputValue
         local targetId = tonumber(data.selectedValue.id)
         
-        TriggerServerEvent("snipe-menu:server:warnPlayer", targetId, reason)
+        TriggerServerEvent("sp-adminmenu:server:warnPlayer", targetId, reason)
         cb("ok")
     else
-        TriggerServerEvent("snipe-menu:server:sendLogs", "exploit", Config.Locales.warn_player_exploit_event)
+        TriggerServerEvent("sp-adminmenu:server:sendLogs", "exploit", Config.Locales.warn_player_exploit_event)
     end
 end)
 
@@ -97,7 +97,7 @@ RegisterNUICallback("sendDmToPlayer", function(data, cb)
         local message = data.inputValue
         local targetId = tonumber(data.selectedValue.id)
         
-        TriggerServerEvent("snipe-menu:server:sendDmToPlayer", targetId, message)
+        TriggerServerEvent("sp-adminmenu:server:sendDmToPlayer", targetId, message)
         cb("ok")
     end
 end)
@@ -123,7 +123,7 @@ end
 RegisterNUICallback("banPlayer", function(data, cb)
     if hasAdminPerms then
         if data.isPermanent then
-            TriggerServerEvent("snipe-menu:server:banPlayer", 
+            TriggerServerEvent("sp-adminmenu:server:banPlayer", 
                 tonumber(data.selectedPlayer.id), 
                 2147483647, 
                 data.reason, 
@@ -134,7 +134,7 @@ RegisterNUICallback("banPlayer", function(data, cb)
                 local banTime = tonumber(data.banTime)
                 local banTimeInSeconds = ConvertBanTimeToSeconds(banTime, data.banOpt)
                 
-                TriggerServerEvent("snipe-menu:server:banPlayer", 
+                TriggerServerEvent("sp-adminmenu:server:banPlayer", 
                     tonumber(data.selectedPlayer.id), 
                     banTimeInSeconds, 
                     data.reason, 
@@ -143,14 +143,14 @@ RegisterNUICallback("banPlayer", function(data, cb)
             cb("ok")
         end
     else
-        TriggerServerEvent("snipe-menu:server:sendLogs", "exploit", Config.Locales.ban_player_exploit)
+        TriggerServerEvent("sp-adminmenu:server:sendLogs", "exploit", Config.Locales.ban_player_exploit)
     end
 end)
 
 RegisterNUICallback("getAllPlayersOffline", function(data, cb)
     local p = promise.new()
     
-    TriggerCallback("snipe-menu:server:getOfflinePlayers", function(result)
+    TriggerCallback("sp-adminmenu:server:getOfflinePlayers", function(result)
         p:resolve(result)
     end)
     
@@ -161,7 +161,7 @@ end)
 RegisterNUICallback("getAllUniquePlayers", function(data, cb)
     local p = promise.new()
     
-    TriggerCallback("snipe-menu:server:getAllUniquePlayers", function(result)
+    TriggerCallback("sp-adminmenu:server:getAllUniquePlayers", function(result)
         p:resolve(result)
     end)
     
@@ -171,10 +171,10 @@ end)
 
 RegisterNUICallback("wipePlayer", function(data, cb)
     if hasAdminPerms then
-        TriggerServerEvent("snipe-menu:server:wipePlayer", data.selectedPlayer.id)
+        TriggerServerEvent("sp-adminmenu:server:wipePlayer", data.selectedPlayer.id)
         cb("ok")
     else
-        TriggerServerEvent("snipe-menu:server:sendLogs", "exploit", Config.Locales.wipe_player_exploit)
+        TriggerServerEvent("sp-adminmenu:server:sendLogs", "exploit", Config.Locales.wipe_player_exploit)
     end
 end)
 
@@ -182,7 +182,7 @@ RegisterNUICallback("banOfflinePlayer", function(data, cb)
     if hasAdminPerms then
         if data.banTime ~= nil then
             if data.isPermanent then
-                TriggerServerEvent("snipe-menu:server:banOfflinePlayer", 
+                TriggerServerEvent("sp-adminmenu:server:banOfflinePlayer", 
                     data.selectedPlayer.id, 
                     2147483647, 
                     data.reason, 
@@ -193,7 +193,7 @@ RegisterNUICallback("banOfflinePlayer", function(data, cb)
                 local banTime = tonumber(data.banTime)
                 local banTimeInSeconds = ConvertBanTimeToSeconds(banTime, data.banOpt)
                 
-                TriggerServerEvent("snipe-menu:server:banOfflinePlayer", 
+                TriggerServerEvent("sp-adminmenu:server:banOfflinePlayer", 
                     data.selectedPlayer.id, 
                     banTimeInSeconds, 
                     data.reason, 
@@ -204,7 +204,7 @@ RegisterNUICallback("banOfflinePlayer", function(data, cb)
             cb("ok")
         end
     else
-        TriggerServerEvent("snipe-menu:server:sendLogs", "exploit", Config.Locales.ban_player_exploit)
+        TriggerServerEvent("sp-adminmenu:server:sendLogs", "exploit", Config.Locales.ban_player_exploit)
         cb("ok")
     end
 end)
@@ -252,10 +252,10 @@ RegisterNUICallback("bringPlayer", function(data, cb)
         local targetId = tonumber(data.selectedPlayer.id)
         local myCoords = GetEntityCoords(PlayerPedId())
         
-        TriggerServerEvent("snipe-menu:server:bringPlayer", targetId, myCoords)
+        TriggerServerEvent("sp-adminmenu:server:bringPlayer", targetId, myCoords)
         cb("ok")
     else
-        TriggerServerEvent("snipe-menu:server:sendLogs", "exploit", Config.Locales.bring_player_exploit)
+        TriggerServerEvent("sp-adminmenu:server:sendLogs", "exploit", Config.Locales.bring_player_exploit)
     end
 end)
 
@@ -263,10 +263,10 @@ RegisterNUICallback("sendBackPlayer", function(data, cb)
     if hasAdminPerms then
         local targetId = tonumber(data.selectedPlayer.id)
         
-        TriggerServerEvent("snipe-menu:server:sendBackPlayer", targetId)
+        TriggerServerEvent("sp-adminmenu:server:sendBackPlayer", targetId)
         cb("ok")
     else
-        TriggerServerEvent("snipe-menu:server:sendLogs", "exploit", Config.Locales.bring_player_exploit)
+        TriggerServerEvent("sp-adminmenu:server:sendLogs", "exploit", Config.Locales.bring_player_exploit)
     end
 end)
 
@@ -274,10 +274,10 @@ RegisterNUICallback("clearInventory", function(data, cb)
     if hasAdminPerms then
         local targetId = tonumber(data.selectedPlayer.id)
         
-        TriggerServerEvent("snipe-menu:server:clearInventory", targetId)
+        TriggerServerEvent("sp-adminmenu:server:clearInventory", targetId)
         cb("ok")
     else
-        TriggerServerEvent("snipe-menu:server:sendLogs", "exploit", Config.Locales.clear_inventory_exploit)
+        TriggerServerEvent("sp-adminmenu:server:sendLogs", "exploit", Config.Locales.clear_inventory_exploit)
     end
 end)
 
@@ -289,7 +289,7 @@ RegisterNUICallback("clearVehicles", function(data, cb)
         clearArea(radius, "vehicle")
         cb("ok")
     else
-        TriggerServerEvent("snipe-menu:server:sendLogs", "exploit", Config.Locales.clear_vehicles_exploit)
+        TriggerServerEvent("sp-adminmenu:server:sendLogs", "exploit", Config.Locales.clear_vehicles_exploit)
     end
 end)
 
@@ -301,7 +301,7 @@ RegisterNUICallback("clearPeds", function(data, cb)
         clearArea(radius, "ped")
         cb("ok")
     else
-        TriggerServerEvent("snipe-menu:server:sendLogs", "exploit", Config.Locales.clear_peds_exploit)
+        TriggerServerEvent("sp-adminmenu:server:sendLogs", "exploit", Config.Locales.clear_peds_exploit)
     end
 end)
 
@@ -313,7 +313,7 @@ RegisterNUICallback("clearObjects", function(data, cb)
         clearArea(radius, "object")
         cb("ok")
     else
-        TriggerServerEvent("snipe-menu:server:sendLogs", "exploit", Config.Locales.clear_object_exploit)
+        TriggerServerEvent("sp-adminmenu:server:sendLogs", "exploit", Config.Locales.clear_object_exploit)
     end
 end)
 
@@ -324,7 +324,7 @@ end)
 RegisterNUICallback("getBannedPlayers", function(data, cb)
     local p = promise.new()
     
-    TriggerCallback("snipe-menu:server:getBannedPlayers", function(result)
+    TriggerCallback("sp-adminmenu:server:getBannedPlayers", function(result)
         p:resolve(result)
     end)
     
@@ -336,19 +336,19 @@ RegisterNUICallback("unbanPlayer", function(data, cb)
     if hasAdminPerms then
         local bannedId = data.selectedPlayer.id
         
-        TriggerServerEvent("snipe-menu:server:unbanPlayer", bannedId, data.selectedPlayer.name)
+        TriggerServerEvent("sp-adminmenu:server:unbanPlayer", bannedId, data.selectedPlayer.name)
         cb("ok")
     else
-        TriggerServerEvent("snipe-menu:server:sendLogs", "exploit", Config.Locales.unban_player_exploit)
+        TriggerServerEvent("sp-adminmenu:server:sendLogs", "exploit", Config.Locales.unban_player_exploit)
     end
 end)
 
 RegisterNUICallback("setPedModel", function(data, cb)
     if hasAdminPerms then
-        TriggerServerEvent("snipe-menu:server:changeModel", data.selectedPlayer.id, data.selectedItem.name)
+        TriggerServerEvent("sp-adminmenu:server:changeModel", data.selectedPlayer.id, data.selectedItem.name)
         cb("ok")
     else
-        TriggerServerEvent("snipe-menu:server:sendLogs", "exploit", Config.Locales.unban_player_exploit)
+        TriggerServerEvent("sp-adminmenu:server:sendLogs", "exploit", Config.Locales.unban_player_exploit)
     end
 end)
 
@@ -373,7 +373,7 @@ function LoadPedModel(modelHash)
     end
 end
 
-RegisterNetEvent("snipe-menu:client:changeModel", function(modelName)
+RegisterNetEvent("sp-adminmenu:client:changeModel", function(modelName)
     local playerPed = PlayerPedId()
     local modelHash = GetHashKey(modelName)
     
@@ -391,21 +391,21 @@ RegisterNUICallback("revertClothing", function(data, cb)
     if hasAdminPerms then
         local targetId = tonumber(data.selectedPlayer.id)
         
-        TriggerServerEvent("snipe-menu:server:revertClothing", targetId)
+        TriggerServerEvent("sp-adminmenu:server:revertClothing", targetId)
         cb("ok")
     else
-        TriggerServerEvent("snipe-menu:server:sendLogs", "exploit", Config.Locales.unban_player_exploit)
+        TriggerServerEvent("sp-adminmenu:server:sendLogs", "exploit", Config.Locales.unban_player_exploit)
     end
 end)
 
 RegisterNUICallback("forceLogout", function(data, cb)
     if hasAdminPerms then
-        TriggerServerEvent("snipe-menu:server:forceLogout", data.selectedPlayer.id)
+        TriggerServerEvent("sp-adminmenu:server:forceLogout", data.selectedPlayer.id)
         cb("ok")
     end
 end)
 
 RegisterNUICallback("giveOutfits", function(data, cb)
-    TriggerServerEvent("snipe-menu:server:giveOutfits", data.selectedPlayer.id)
+    TriggerServerEvent("sp-adminmenu:server:giveOutfits", data.selectedPlayer.id)
     cb("ok")
 end)

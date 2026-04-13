@@ -2,9 +2,9 @@
 
 local adminChats = {}
 
-CreateCallback("snipe-menu:server:getAdminChats", function(source, callback)
+CreateCallback("sp-adminmenu:server:getAdminChats", function(source, callback)
     if not onlineAdmins[source] then
-        SendLogs(source, "exploit", "Exploit detected: snipe-menu:server:getAdminChats")
+        SendLogs(source, "exploit", "Exploit detected: sp-adminmenu:server:getAdminChats")
         DropPlayer(source, "Exploit detected")
         return
     end
@@ -15,11 +15,11 @@ CreateCallback("snipe-menu:server:getAdminChats", function(source, callback)
     })
 end)
 
-RegisterServerEvent("snipe-menu:server:adminMessageSent", function(messageData)
+RegisterServerEvent("sp-adminmenu:server:adminMessageSent", function(messageData)
     local playerId = source
 
     if not onlineAdmins[playerId] then
-        SendLogs(playerId, "exploit", "Exploit detected: snipe-menu:server:adminMessageSent")
+        SendLogs(playerId, "exploit", "Exploit detected: sp-adminmenu:server:adminMessageSent")
         DropPlayer(playerId, "Exploit detected")
         return
     end

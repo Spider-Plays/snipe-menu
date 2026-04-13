@@ -4,7 +4,7 @@
 -- ██   ██ ██   ██ ██  ██ ██ 
 -- ██████  ██   ██ ██   ████
 
-RegisterServerEvent("snipe-menu:server:banPlayer", function(playerId, time, reason, timeForBan)
+RegisterServerEvent("sp-adminmenu:server:banPlayer", function(playerId, time, reason, timeForBan)
     local src = source
     if src ~= 0 and onlineAdmins[src] then
         local license = GetPlayerIdentifiersList(playerId, "license")
@@ -62,7 +62,7 @@ exports("BanPlayer", BanPlayer)
 
 
 
-RegisterServerEvent("snipe-menu:server:banOfflinePlayer", function(license, time, reason, timeForBan, name)
+RegisterServerEvent("sp-adminmenu:server:banOfflinePlayer", function(license, time, reason, timeForBan, name)
     local src = source
     if src ~= 0 and onlineAdmins[src] then
         time = tonumber(time)
@@ -85,9 +85,9 @@ RegisterServerEvent("snipe-menu:server:banOfflinePlayer", function(license, time
     end
 end)
 
-CreateCallback("snipe-menu:server:getBannedPlayers", function (source, cb)
+CreateCallback("sp-adminmenu:server:getBannedPlayers", function (source, cb)
     if not onlineAdmins[source] then 
-        SendLogs(source, "exploit", "Exploit detected: snipe-menu:server:getBannedPlayers")
+        SendLogs(source, "exploit", "Exploit detected: sp-adminmenu:server:getBannedPlayers")
         DropPlayer(source, "Exploit detected")
         return
     end

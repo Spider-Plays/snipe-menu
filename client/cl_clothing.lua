@@ -21,5 +21,5 @@ end
 
 function ResetPlayerClothes()
     if not Config.AdminClothes then return end
-    TriggerEvent("snipe-menu:client:revertClothing")
+    TriggerEvent("sp-adminmenu:client:revertClothing")
 end

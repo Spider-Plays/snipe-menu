@@ -1,8 +1,8 @@
-RegisterNetEvent("snipe-menu:client:toggleDuty", function()
+RegisterNetEvent("sp-adminmenu:client:toggleDuty", function()
     if hasAdminPerms then     
         ToggleDuty()
     else
-        TriggerServerEvent("snipe-menu:server:sendLogs", "exploit", Config.Locales["toggle_duty_exploit"])
+        TriggerServerEvent("sp-adminmenu:server:sendLogs", "exploit", Config.Locales["toggle_duty_exploit"])
     end
 end)
 
@@ -67,7 +67,7 @@ CreateThread(function()
     end
 end)
 
-RegisterNetEvent("snipe-menu:client:reviveall", function(id)
+RegisterNetEvent("sp-adminmenu:client:reviveall", function(id)
     local p = promise.new()
     TriggerCallback("snipe-adminmenu:server:isAdmin", function(isAdmin)
         p:resolve(isAdmin)
@@ -78,7 +78,7 @@ RegisterNetEvent("snipe-menu:client:reviveall", function(id)
     end
 end)
 
-RegisterNetEvent("snipe-menu:client:bringPlayer", function(id, coords)
+RegisterNetEvent("sp-adminmenu:client:bringPlayer", function(id, coords)
     local p = promise.new()
     TriggerCallback("snipe-adminmenu:server:isAdmin", function(isAdmin)
         p:resolve(isAdmin)
@@ -89,7 +89,7 @@ RegisterNetEvent("snipe-menu:client:bringPlayer", function(id, coords)
     end
 end)
 
-RegisterNetEvent("snipe-menu:client:sendBackPlayer", function(id, coords)
+RegisterNetEvent("sp-adminmenu:client:sendBackPlayer", function(id, coords)
     local p = promise.new()
     TriggerCallback("snipe-adminmenu:server:isAdmin", function(isAdmin)
         p:resolve(isAdmin)

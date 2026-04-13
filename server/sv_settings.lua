@@ -57,11 +57,11 @@ Citizen.CreateThread(function()
     permsLoaded = true
 end)
 
-CreateCallback("snipe-menu:server:getAllTable", function(source, callback)
+CreateCallback("sp-adminmenu:server:getAllTable", function(source, callback)
     callback(ModSettings)
 end)
 
-CreateCallback("snipe-menu:server:getRoleWisePanels", function(source, callback, roles)
+CreateCallback("sp-adminmenu:server:getRoleWisePanels", function(source, callback, roles)
     local panels = {}
 
     if type(roles) == "table" then
@@ -89,7 +89,7 @@ CreateCallback("snipe-menu:server:getRoleWisePanels", function(source, callback,
     callback(panels)
 end)
 
-CreateCallback("snipe-menu:server:getRoleWisePanelsWithLabel", function(source, callback, roleLabel)
+CreateCallback("sp-adminmenu:server:getRoleWisePanelsWithLabel", function(source, callback, roleLabel)
     for settingLabel, settingPanels in pairs(ModSettings) do
         if settingLabel == roleLabel then
             callback(settingPanels)
@@ -99,11 +99,11 @@ CreateCallback("snipe-menu:server:getRoleWisePanelsWithLabel", function(source, 
     callback({})
 end)
 
-RegisterServerEvent("snipe-menu:server:saveModeratorCommands", function(settings, roleLabel)
+RegisterServerEvent("sp-adminmenu:server:saveModeratorCommands", function(settings, roleLabel)
     local playerId = source
 
     if not onlineAdmins[playerId] then
-        SendLogs(playerId, "exploit", "Exploit detected: snipe-menu:server:saveModeratorCommands")
+        SendLogs(playerId, "exploit", "Exploit detected: sp-adminmenu:server:saveModeratorCommands")
         DropPlayer(playerId, "Exploit detected")
         return
     end
@@ -119,7 +119,7 @@ RegisterServerEvent("snipe-menu:server:saveModeratorCommands", function(settings
     )
 end)
 
-RegisterNetEvent("snipe-menu:server:givePerms", function(targetId, permission)
+RegisterNetEvent("sp-adminmenu:server:givePerms", function(targetId, permission)
     local playerId = source
 
     if not onlineAdmins[playerId] then
@@ -127,13 +127,13 @@ RegisterNetEvent("snipe-menu:server:givePerms", function(targetId, permission)
     end
 
     -- Only god role can give permissions
-    local adminRole = exports["snipe-menu"]:GetAdminRoleName(playerId)
+    local adminRole = exports["sp-adminmenu"]:GetAdminRoleName(playerId)
     if adminRole ~= "god" then
         return
     end
 
     -- Confirm with admin
-    local confirmed = lib.callback.await("snipe-menu:server:confirmGivePerms", playerId, targetId, permission, GetPlayerName(tonumber(targetId)))
+    local confirmed = lib.callback.await("sp-adminmenu:server:confirmGivePerms", playerId, targetId, permission, GetPlayerName(tonumber(targetId)))
     if not confirmed then
         return
     end
@@ -169,13 +169,13 @@ RegisterNetEvent("snipe-menu:server:givePerms", function(targetId, permission)
         }
     )
 
-    TriggerClientEvent("snipe-menu:client:resetPermissions", tonumber(targetId))
+    TriggerClientEvent("sp-adminmenu:client:resetPermissions", tonumber(targetId))
     ResetDutyPermsTable(tonumber(targetId))
 end)
 
-CreateCallback("snipe-menu:server:getAdmins", function(source, callback)
+CreateCallback("sp-adminmenu:server:getAdmins", function(source, callback)
     if not onlineAdmins[source] then
-        SendLogs(source, "exploit", "Exploit detected: snipe-menu:server:getAdmins")
+        SendLogs(source, "exploit", "Exploit detected: sp-adminmenu:server:getAdmins")
         DropPlayer(source, "Exploit detected")
         return
     end
@@ -191,7 +191,7 @@ CreateCallback("snipe-menu:server:getAdmins", function(source, callback)
     callback(adminList)
 end)
 
-RegisterNetEvent("snipe-menu:server:removeRoles", function(identifier)
+RegisterNetEvent("sp-adminmenu:server:removeRoles", function(identifier)
     if not onlineAdmins[source] then
         return
     end
@@ -206,7 +206,7 @@ RegisterNetEvent("snipe-menu:server:removeRoles", function(identifier)
     })
 
     if targetPlayerId then
-        TriggerClientEvent("snipe-menu:client:removeAllPermissions", tonumber(targetPlayerId))
+        TriggerClientEvent("sp-adminmenu:client:removeAllPermissions", tonumber(targetPlayerId))
         ResetDutyPermsTable(tonumber(targetPlayerId))
     end
 end)

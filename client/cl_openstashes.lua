@@ -3,7 +3,7 @@
 RegisterNUICallback("getStashes", function(data, callback)
     local p = promise.new()
 
-    TriggerCallback("snipe-menu:server:getAllStashes", function(result)
+    TriggerCallback("sp-adminmenu:server:getAllStashes", function(result)
         p:resolve(result)
     end)
 
@@ -14,7 +14,7 @@ end)
 RegisterNUICallback("getAllOwnedVehicles", function(data, callback)
     local p = promise.new()
 
-    TriggerCallback("snipe-menu:server:getAllOwnedVehicles", function(result)
+    TriggerCallback("sp-adminmenu:server:getAllOwnedVehicles", function(result)
         p:resolve(result)
     end)
 
@@ -24,12 +24,12 @@ end)
 
 RegisterNUICallback("openStash", function(data, callback)
     if hasAdminPerms then
-        TriggerEvent("snipe-menu:client:forceCloseAdminMenu")
+        TriggerEvent("sp-adminmenu:client:forceCloseAdminMenu")
         OpenStash(data.selectedValue.name, data.inputValue)
         callback("ok")
-        TriggerServerEvent("snipe-menu:server:sendLogs", "triggered", "Opened Stash " .. data.selectedValue.name)
+        TriggerServerEvent("sp-adminmenu:server:sendLogs", "triggered", "Opened Stash " .. data.selectedValue.name)
     else
-        TriggerServerEvent("snipe-menu:server:sendLogs", "exploit", Config.Locales.inventory_open_exploit)
+        TriggerServerEvent("sp-adminmenu:server:sendLogs", "exploit", Config.Locales.inventory_open_exploit)
     end
 end)
 
@@ -38,12 +38,12 @@ RegisterNUICallback("openTrunk", function(data, callback)
         local plateId = data.selectedPlayer.id
         local plateName = data.selectedPlayer.name
 
-        TriggerEvent("snipe-menu:client:forceCloseAdminMenu")
+        TriggerEvent("sp-adminmenu:client:forceCloseAdminMenu")
         OpenTrunk(plateId, plateName)
-        TriggerServerEvent("snipe-menu:server:sendLogs", "triggered", "Opened Trunk for plate: " .. plateName)
+        TriggerServerEvent("sp-adminmenu:server:sendLogs", "triggered", "Opened Trunk for plate: " .. plateName)
         callback("ok")
     else
-        TriggerServerEvent("snipe-menu:server:sendLogs", "exploit", Config.Locales.inventory_open_exploit)
+        TriggerServerEvent("sp-adminmenu:server:sendLogs", "exploit", Config.Locales.inventory_open_exploit)
     end
 end)
 
@@ -51,11 +51,11 @@ RegisterNUICallback("openGlovebox", function(data, callback)
     if hasAdminPerms then
         local plateName = data.selectedPlayer.name
 
-        TriggerEvent("snipe-menu:client:forceCloseAdminMenu")
+        TriggerEvent("sp-adminmenu:client:forceCloseAdminMenu")
         OpenGlovebox(plateName)
-        TriggerServerEvent("snipe-menu:server:sendLogs", "triggered", "Opened glovebox for plate: " .. plateName)
+        TriggerServerEvent("sp-adminmenu:server:sendLogs", "triggered", "Opened glovebox for plate: " .. plateName)
         callback("ok")
     else
-        TriggerServerEvent("snipe-menu:server:sendLogs", "exploit", Config.Locales.inventory_open_exploit)
+        TriggerServerEvent("sp-adminmenu:server:sendLogs", "exploit", Config.Locales.inventory_open_exploit)
     end
 end)

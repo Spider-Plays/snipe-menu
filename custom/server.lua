@@ -1,4 +1,4 @@
-CreateCallback("snipe-menu:server:fetchPlayerListCustom", function(source, cb)
+CreateCallback("sp-adminmenu:server:fetchPlayerListCustom", function(source, cb)
     local players = {}
     for _, player in ipairs(GetPlayers()) do
         table.insert(players, {

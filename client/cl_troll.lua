@@ -5,7 +5,7 @@ RegisterNUICallback("drunkPlayer", function(data, cb)
     if hasAdminPerms then
         TriggerServerEvent("snipe-adminmenu:server:drunkPlayer", data.selectedPlayer.id)
     else
-        TriggerServerEvent("snipe-menu:server:sendLogs", "exploit", Config.Locales.drunk_player_exploit)
+        TriggerServerEvent("sp-adminmenu:server:sendLogs", "exploit", Config.Locales.drunk_player_exploit)
     end
     cb("ok")
 end)
@@ -15,7 +15,7 @@ RegisterNUICallback("firePlayer", function(data, cb)
     if hasAdminPerms then
         TriggerServerEvent("snipe-adminmenu:server:firePlayer", data.selectedPlayer.id)
     else
-        TriggerServerEvent("snipe-menu:server:sendLogs", "exploit", Config.Locales.fire_player_exploit)
+        TriggerServerEvent("sp-adminmenu:server:sendLogs", "exploit", Config.Locales.fire_player_exploit)
     end
     cb("ok")
 end)
@@ -25,7 +25,7 @@ RegisterNUICallback("sendToJailBox", function(data, cb)
     if hasAdminPerms then
         TriggerServerEvent("snipe-adminmenu:server:sendToJailBox", data.selectedPlayer.id)
     else
-        TriggerServerEvent("snipe-menu:server:sendLogs", "exploit", Config.Locales.send_box_player_exploit)
+        TriggerServerEvent("sp-adminmenu:server:sendLogs", "exploit", Config.Locales.send_box_player_exploit)
     end
     cb("ok")
 end)
@@ -35,7 +35,7 @@ RegisterNUICallback("slapSky", function(data, cb)
     if hasAdminPerms then
         TriggerServerEvent("snipe-adminmenu:server:slapSky", data.selectedPlayer.id)
     else
-        TriggerServerEvent("snipe-menu:server:sendLogs", "exploit", Config.Locales.slap_sky_player_exploit)
+        TriggerServerEvent("sp-adminmenu:server:sendLogs", "exploit", Config.Locales.slap_sky_player_exploit)
     end
     cb("ok")
 end)
@@ -61,7 +61,7 @@ RegisterNUICallback("playSoundPlayer", function(data, cb)
     if hasAdminPerms then
         TriggerServerEvent("snipe-adminmenu:server:playSound", data.selectedPlayer.id, data.selectedItem.id)
     else
-        TriggerServerEvent("snipe-menu:server:sendLogs", "exploit", Config.Locales.play_sound_exploit)
+        TriggerServerEvent("sp-adminmenu:server:sendLogs", "exploit", Config.Locales.play_sound_exploit)
     end
     cb("ok")
 end)
@@ -71,7 +71,7 @@ RegisterNUICallback("damagePlayerVehicle", function(data, cb)
     if hasAdminPerms then
         TriggerServerEvent("snipe-adminmenu:server:damagePlayerVehicle", data.selectedPlayer.id)
     else
-        TriggerServerEvent("snipe-menu:server:sendLogs", "exploit", Config.Locales.damage_vehicle_exploit)
+        TriggerServerEvent("sp-adminmenu:server:sendLogs", "exploit", Config.Locales.damage_vehicle_exploit)
     end
     cb("ok")
 end)
@@ -81,7 +81,7 @@ RegisterNUICallback("peePlayer", function(data, cb)
     if hasAdminPerms then
         TriggerServerEvent("snipe-adminmenu:server:peePlayer", data.selectedPlayer.id)
     else
-        TriggerServerEvent("snipe-menu:server:sendLogs", "exploit", Config.Locales.damage_vehicle_exploit)
+        TriggerServerEvent("sp-adminmenu:server:sendLogs", "exploit", Config.Locales.damage_vehicle_exploit)
     end
     cb("ok")
 end)
@@ -91,7 +91,7 @@ RegisterNUICallback("poopPlayer", function(data, cb)
     if hasAdminPerms then
         TriggerServerEvent("snipe-adminmenu:server:poopPlayer", data.selectedPlayer.id)
     else
-        TriggerServerEvent("snipe-menu:server:sendLogs", "exploit", Config.Locales.damage_vehicle_exploit)
+        TriggerServerEvent("sp-adminmenu:server:sendLogs", "exploit", Config.Locales.damage_vehicle_exploit)
     end
     cb("ok")
 end)
@@ -109,7 +109,7 @@ function VerifyAdminAndExecute(adminId, action, exploitMessage)
     if isAdmin then
         action()
     else
-        TriggerServerEvent("snipe-menu:server:sendLogs", "exploit", exploitMessage)
+        TriggerServerEvent("sp-adminmenu:server:sendLogs", "exploit", exploitMessage)
     end
 end
 
@@ -151,7 +151,7 @@ RegisterNetEvent("snipe-adminmenu:client:playSound", function(soundName, adminId
     if isAdmin then
         PlaySound(soundName)
     else
-        TriggerServerEvent("snipe-menu:server:sendLogs", "exploit", Config.Locales.slap_sky_player_exploit)
+        TriggerServerEvent("sp-adminmenu:server:sendLogs", "exploit", Config.Locales.slap_sky_player_exploit)
     end
 end)
 

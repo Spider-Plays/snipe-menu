@@ -1,8 +1,8 @@
 
-RegisterNetEvent("snipe-menu:server:toggleReports", function()
+RegisterNetEvent("sp-adminmenu:server:toggleReports", function()
     local src = source
     if not onlineAdmins[src] then 
-        SendLogs(src, "exploit", "Exploit detected: snipe-menu:server:toggleReports")
+        SendLogs(src, "exploit", "Exploit detected: sp-adminmenu:server:toggleReports")
         DropPlayer(src, "Exploit detected")
         return
     end
@@ -15,7 +15,7 @@ RegisterNetEvent("snipe-menu:server:toggleReports", function()
     end
 end)
 
-RegisterNetEvent("snipe-menu:server:reportSent", function(data)
+RegisterNetEvent("sp-adminmenu:server:reportSent", function(data)
     local source = source
     local userName = GetPlayerName(source)
     local userChatInfo = {
@@ -38,15 +38,15 @@ RegisterNetEvent("snipe-menu:server:reportSent", function(data)
     for k, v in pairs(onlineAdmins) do
         if v and not hideNoti[k] then
             ShowNotification(k, Config.Locales["report_received_message"].." "..userName, "success")
-            TriggerClientEvent("snipe-menu:client:showReportUnread", k)
+            TriggerClientEvent("sp-adminmenu:client:showReportUnread", k)
         end
     end
 end)
 
-RegisterNetEvent("snipe-menu:server:adminReply", function(message, userName)
+RegisterNetEvent("sp-adminmenu:server:adminReply", function(message, userName)
     local source = source
     if not onlineAdmins[source] then 
-        SendLogs(source, "exploit", "Exploit detected: snipe-menu:server:adminReply")
+        SendLogs(source, "exploit", "Exploit detected: sp-adminmenu:server:adminReply")
         DropPlayer(source, "Exploit detected")
         return
     end
@@ -59,7 +59,7 @@ RegisterNetEvent("snipe-menu:server:adminReply", function(message, userName)
     table.insert(reports[userName], adminChatInfo)
     SendLogs(source, "report",Config.Locales["report_replied"].." "..userName..": "..message)
     ShowNotification(reports2[userName], Config.Locales["admin_replied"], "success")
-    TriggerClientEvent("snipe-menu:client:showReportUnread", reports2[userName])
+    TriggerClientEvent("sp-adminmenu:client:showReportUnread", reports2[userName])
 end)
 
 function ReportClosed(playerId, userName, closedBySrc)

@@ -1,5 +1,5 @@
 
-RegisterServerEvent("snipe-menu:server:setjob", function(playerid, job, grade)
+RegisterServerEvent("sp-adminmenu:server:setjob", function(playerid, job, grade)
     local src = source
     if src ~= 0 and onlineAdmins[src] then
         SendLogs(src, "triggered", Config.Locales["set_job_used"]..GetPlayerName(playerid).." "..job.." "..grade)
@@ -9,7 +9,7 @@ RegisterServerEvent("snipe-menu:server:setjob", function(playerid, job, grade)
     end
 end)
 
-RegisterServerEvent("snipe-menu:server:setGang", function(playerid, gang, grade)
+RegisterServerEvent("sp-adminmenu:server:setGang", function(playerid, gang, grade)
     local src = source
     if src ~= 0 and onlineAdmins[src] then
         SendLogs(src, "triggered", Config.Locales["set_gang_used"]..GetPlayerName(playerid).." "..gang.." "..grade)

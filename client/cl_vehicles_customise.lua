@@ -28,21 +28,21 @@ function SpawnCar(carName, maxMods, seatVehicle)
         SetVehicleHasBeenOwnedByPlayer(vehicle, true)
         SetNetworkIdCanMigrate(netid, true)
         GiveKeys(vehicle, GetVehicleNumberPlateText(vehicle))
-        TriggerServerEvent("snipe-menu:server:sendLogs", "triggered", "Spawned a " .. carName)
+        TriggerServerEvent("sp-adminmenu:server:sendLogs", "triggered", "Spawned a " .. carName)
         if maxMods then
             Wait(100)
             MaxModVehicle(vehicle)
         end
         if seatVehicle then
             TaskWarpPedIntoVehicle(PlayerPedId(), vehicle, -1)
-            TriggerEvent("snipe-menu:client:forceCloseAdminMenu")
+            TriggerEvent("sp-adminmenu:client:forceCloseAdminMenu")
         end
     else
         print("Invalid model name")
     end
 end
 
-RegisterNetEvent("snipe-menu:client:FixVehicle", function()
+RegisterNetEvent("sp-adminmenu:client:FixVehicle", function()
     if hasAdminPerms then
         local vehicle = GetVehiclePedIsIn(PlayerPedId(), false)
         if vehicle then
@@ -55,11 +55,11 @@ RegisterNetEvent("snipe-menu:client:FixVehicle", function()
             ShowNotification("You are not in a vehicle", "error")
         end
     else
-        TriggerServerEvent("snipe-menu:server:sendLogs", "exploit", Config.Locales["fix_vehicle_exploit_event"])
+        TriggerServerEvent("sp-adminmenu:server:sendLogs", "exploit", Config.Locales["fix_vehicle_exploit_event"])
     end
 end)
 
-RegisterNetEvent("snipe-menu:client:changePlate", function(newPlate)
+RegisterNetEvent("sp-adminmenu:client:changePlate", function(newPlate)
     local vehicle = GetVehiclePedIsIn(PlayerPedId(), false)
     SetVehicleNumberPlateText(vehicle, newPlate)
     GiveKeys(vehicle, newPlate)

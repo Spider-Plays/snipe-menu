@@ -82,7 +82,7 @@ function ClearPlayerData(playerId)
     end
 end
 
-RegisterServerEvent("snipe-menu:server:playerLoaded", function()
+RegisterServerEvent("sp-adminmenu:server:playerLoaded", function()
     local playerId = source
     local playerName = GetPlayerName(playerId)
 
@@ -114,7 +114,7 @@ end)
 AddEventHandler("playerDropped", function()
     local playerId = source
 
-    TriggerClientEvent("snipe-menu:client:playerDropped", -1, playerId)
+    TriggerClientEvent("sp-adminmenu:client:playerDropped", -1, playerId)
 
     -- Remove from players table
     for index, playerData in pairs(playersTable) do
@@ -134,10 +134,10 @@ AddEventHandler("playerDropped", function()
     }
 end)
 
-RegisterNetEvent("snipe-menu:server:blipsStarted", function(enabled)
+RegisterNetEvent("sp-adminmenu:server:blipsStarted", function(enabled)
     local playerId = source
 
-    if not ValidateAdmin(playerId, "snipe-menu:server:blipsStarted") then
+    if not ValidateAdmin(playerId, "sp-adminmenu:server:blipsStarted") then
         return
     end
 
@@ -162,7 +162,7 @@ function StartBlipThread()
             local blipData = BuildBlipData()
 
             for subscriberId in pairs(blipSubscribers) do
-                TriggerClientEvent("snipe-menu:client:blipData", subscriberId, blipData)
+                TriggerClientEvent("sp-adminmenu:client:blipData", subscriberId, blipData)
             end
 
             Wait(math.random(3000, 5000))
@@ -170,8 +170,8 @@ function StartBlipThread()
     end)
 end
 
-CreateCallback("snipe-menu:server:getBlipsInfo", function(source, callback)
-    if not ValidateAdmin(source, "snipe-menu:server:getBlipsInfo") then
+CreateCallback("sp-adminmenu:server:getBlipsInfo", function(source, callback)
+    if not ValidateAdmin(source, "sp-adminmenu:server:getBlipsInfo") then
         return
     end
 

@@ -28,14 +28,14 @@ end
 function ToggleNames()
     if Config.NewNamesLogic then
         if not toggleNameThread then
-            TriggerServerEvent("snipe-menu:server:sendLogs", "triggered", Config.Locales["toggle_name_used"])
+            TriggerServerEvent("sp-adminmenu:server:sendLogs", "triggered", Config.Locales["toggle_name_used"])
             toggleNameThread = true
             StartNamesThread()
             StartDistanceThread()
             StartGroupThread()
             while toggleNameThread do
                 local p = promise.new()
-                TriggerCallback("snipe-menu:server:getBlipsInfo", function(result)
+                TriggerCallback("sp-adminmenu:server:getBlipsInfo", function(result)
                     p:resolve(result)
                 end)
                 players = Citizen.Await(p)
@@ -48,7 +48,7 @@ function ToggleNames()
         end
     else
         if not toggleNameThread then
-            TriggerServerEvent("snipe-menu:server:sendLogs", "triggered", Config.Locales["toggle_name_used"])
+            TriggerServerEvent("sp-adminmenu:server:sendLogs", "triggered", Config.Locales["toggle_name_used"])
             toggleNameThread = true
             while toggleNameThread do
                 local curCoords = GetEntityCoords(PlayerPedId())
@@ -92,7 +92,7 @@ function ToggleNames()
 end
 
 AddEventHandler("onResourceStop", function(resourceName)
-    if resourceName == "snipe-menu" then
+    if resourceName == "sp-adminmenu" then
         cleanUpGamerTags()
     end
 end)

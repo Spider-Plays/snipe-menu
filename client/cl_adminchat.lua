@@ -3,7 +3,7 @@
 RegisterNUICallback("getAdminChats", function(data, callback)
     local p = promise.new()
 
-    TriggerCallback("snipe-menu:server:getAdminChats", function(result)
+    TriggerCallback("sp-adminmenu:server:getAdminChats", function(result)
         p:resolve(result)
     end)
 
@@ -18,16 +18,16 @@ end)
 RegisterNUICallback("adminMessageSent", function(data, callback)
     if not hasAdminPerms then return end
 
-    TriggerServerEvent("snipe-menu:server:adminMessageSent", data)
+    TriggerServerEvent("sp-adminmenu:server:adminMessageSent", data)
 
     local p = promise.new()
-    TriggerCallback("snipe-menu:server:getAdminChats", function(result)
+    TriggerCallback("sp-adminmenu:server:getAdminChats", function(result)
         p:resolve(result)
     end)
 
     local chatData = Citizen.Await(p)
 
-    TriggerServerEvent("snipe-menu:server:notifyAdmins", chatData.currUserName)
+    TriggerServerEvent("sp-adminmenu:server:notifyAdmins", chatData.currUserName)
 
     callback({ chats = chatData.chats })
 end)
@@ -36,7 +36,7 @@ RegisterNUICallback("refreshChats", function(data, callback)
     if not hasAdminPerms then return end
 
     local p = promise.new()
-    TriggerCallback("snipe-menu:server:getAdminChats", function(result)
+    TriggerCallback("sp-adminmenu:server:getAdminChats", function(result)
         p:resolve(result)
     end)
 

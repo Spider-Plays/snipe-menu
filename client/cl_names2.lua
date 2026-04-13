@@ -69,7 +69,7 @@ function CleanupOnClose()
     playersOutOfRange = {}
 end
 
-RegisterNetEvent("snipe-menu:client:playerDropped", function(playerId)
+RegisterNetEvent("sp-adminmenu:client:playerDropped", function(playerId)
     if playersInRange[playerId] then
         RemovePlayerFromList(playerId)
         RemovePlayerDataFromGroups(playerId)

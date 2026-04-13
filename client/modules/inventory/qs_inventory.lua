@@ -46,6 +46,6 @@ function openJobStash(data)
     TriggerEvent("inventory:client:SetCurrentStash", data.jobStashName)
 end
 
-RegisterNetEvent("snipe-menu:client:openinventory", function(otherPlayer)
+RegisterNetEvent("sp-adminmenu:client:openinventory", function(otherPlayer)
     TriggerServerEvent("inventory:server:OpenInventory", "otherplayer", otherPlayer)
 end)

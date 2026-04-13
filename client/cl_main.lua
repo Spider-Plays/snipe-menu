@@ -13,10 +13,10 @@ adminTagEnabledList = {}
 
 RegisterNetEvent(Config.FrameworkTriggers[Config.Framework].PlayerLoaded)
 AddEventHandler(Config.FrameworkTriggers[Config.Framework].PlayerLoaded, function()
-    TriggerServerEvent("snipe-menu:server:playerLoaded")
+    TriggerServerEvent("sp-adminmenu:server:playerLoaded")
     
     local p = promise.new()
-    TriggerCallback("snipe-menu:server:getTables", function(result)
+    TriggerCallback("sp-adminmenu:server:getTables", function(result)
         p:resolve(result)
     end)
     
@@ -24,7 +24,7 @@ AddEventHandler(Config.FrameworkTriggers[Config.Framework].PlayerLoaded, functio
     isSpawned = true
     
     local tagPromise = promise.new()
-    TriggerCallback("snipe-menu:server:getEnabledAdminTags", function(result)
+    TriggerCallback("sp-adminmenu:server:getEnabledAdminTags", function(result)
         tagPromise:resolve(result)
     end)
     
@@ -32,7 +32,7 @@ AddEventHandler(Config.FrameworkTriggers[Config.Framework].PlayerLoaded, functio
     
     if not Config.AdminDuty then
         local permPromise = promise.new()
-        TriggerCallback("snipe-menu:server:getAdminPerms", function(result)
+        TriggerCallback("sp-adminmenu:server:getAdminPerms", function(result)
             permPromise:resolve(result)
         end)
         
@@ -42,7 +42,7 @@ AddEventHandler(Config.FrameworkTriggers[Config.Framework].PlayerLoaded, functio
         userRole = perms[3] or "God"
         isGod = perms[4]
         
-        TriggerEvent("snipe-menu:client:addkeymapping", hasAdminPerms)
+        TriggerEvent("sp-adminmenu:client:addkeymapping", hasAdminPerms)
     end
 end)
 
@@ -60,7 +60,7 @@ AddEventHandler(Config.FrameworkTriggers[Config.Framework].PlayerUnload, functio
     enabledButtons = {}
     
     if toggleDev then
-        TriggerEvent("snipe-menu:client:toggleDev")
+        TriggerEvent("sp-adminmenu:client:toggleDev")
     end
     
     toggleDev = false
@@ -70,13 +70,13 @@ AddEventHandler(Config.FrameworkTriggers[Config.Framework].PlayerUnload, functio
     blipThread = false
 end)
 
-RegisterNetEvent("snipe-menu:client:resetPermissions", function()
+RegisterNetEvent("sp-adminmenu:client:resetPermissions", function()
     if Config.AdminDuty and not hasAdminPerms then
         return
     end
     
     local p = promise.new()
-    TriggerCallback("snipe-menu:server:getAdminPerms", function(result)
+    TriggerCallback("sp-adminmenu:server:getAdminPerms", function(result)
         p:resolve(result)
     end)
     
@@ -86,7 +86,7 @@ RegisterNetEvent("snipe-menu:client:resetPermissions", function()
     userRole = perms[3] or "God"
     isGod = perms[4]
     
-    TriggerEvent("snipe-menu:client:addkeymapping", hasAdminPerms)
+    TriggerEvent("sp-adminmenu:client:addkeymapping", hasAdminPerms)
 end)
 
 adminMenuOpen = false
@@ -114,7 +114,7 @@ end
 function OpenAdminMenu()
     if hasAdminPerms then
         local p = promise.new()
-        TriggerCallback("snipe-menu:server:getRoleWisePanels", function(result)
+        TriggerCallback("sp-adminmenu:server:getRoleWisePanels", function(result)
             p:resolve(result)
         end, userAccesses)
         
@@ -182,7 +182,7 @@ function GodModethread()
     local lastVehicle = nil
     
     if godMode then
-        TriggerServerEvent("snipe-menu:server:sendLogs", "triggered", Config.Locales.god_mode_used)
+        TriggerServerEvent("sp-adminmenu:server:sendLogs", "triggered", Config.Locales.god_mode_used)
     end
     
     if godMode then
@@ -233,7 +233,7 @@ function ToggleSuperJump()
     superJumpEnabled = not superJumpEnabled
     
     if superJumpEnabled then
-        TriggerServerEvent("snipe-menu:server:sendLogs", "triggered", Config.Locales.super_jump_used)
+        TriggerServerEvent("sp-adminmenu:server:sendLogs", "triggered", Config.Locales.super_jump_used)
     end
     
     if superJumpEnabled then
@@ -250,11 +250,11 @@ local noclipEnabled = false
 
 RegisterNUICallback("fixvehicle", function(data, cb)
     if hasAdminPerms then
-        TriggerEvent("snipe-menu:client:FixVehicle")
-        TriggerServerEvent("snipe-menu:server:sendLogs", "triggered", Config.Locales.fix_vehicle_used)
+        TriggerEvent("sp-adminmenu:client:FixVehicle")
+        TriggerServerEvent("sp-adminmenu:server:sendLogs", "triggered", Config.Locales.fix_vehicle_used)
         cb("ok")
     else
-        TriggerServerEvent("snipe-menu:server:sendLogs", "exploit", Config.Locales.fix_vehicle_exploit)
+        TriggerServerEvent("sp-adminmenu:server:sendLogs", "exploit", Config.Locales.fix_vehicle_exploit)
     end
 end)
 
@@ -265,7 +265,7 @@ RegisterNUICallback("godmode", function(data, cb)
         cb("ok")
         GodModethread()
     else
-        TriggerServerEvent("snipe-menu:server:sendLogs", "exploit", Config.Locales.god_mode_exploit)
+        TriggerServerEvent("sp-adminmenu:server:sendLogs", "exploit", Config.Locales.god_mode_exploit)
     end
 end)
 
@@ -276,11 +276,11 @@ RegisterNUICallback("noclip", function(data, cb)
         cb("ok")
         ToggleNoClip(not IsNoClipping)
     else
-        TriggerServerEvent("snipe-menu:server:sendLogs", "exploit", Config.Locales.noclip_exploit)
+        TriggerServerEvent("sp-adminmenu:server:sendLogs", "exploit", Config.Locales.noclip_exploit)
     end
 end)
 
-RegisterNetEvent("snipe-menu:client:toggleAdminTag", function(serverId, enabled, isFromServer)
+RegisterNetEvent("sp-adminmenu:client:toggleAdminTag", function(serverId, enabled, isFromServer)
     if isFromServer then
         adminTagEnabledList[serverId] = enabled
         return
@@ -300,7 +300,7 @@ RegisterNetEvent("snipe-menu:client:toggleAdminTag", function(serverId, enabled,
             adminTagEnabledList[serverId] = nil
         end
     else
-        TriggerServerEvent("snipe-menu:server:sendLogs", "exploit", Config.Locales.admintag_exploit)
+        TriggerServerEvent("sp-adminmenu:server:sendLogs", "exploit", Config.Locales.admintag_exploit)
     end
 end)
 
@@ -312,9 +312,9 @@ RegisterNUICallback("admintag", function(data, cb)
     
     if hasAdminPerms then
         cb("ok")
-        TriggerServerEvent("snipe-menu:server:toggleAdminTag", adminTagEnabled)
+        TriggerServerEvent("sp-adminmenu:server:toggleAdminTag", adminTagEnabled)
     else
-        TriggerServerEvent("snipe-menu:server:sendLogs", "exploit", Config.Locales.admintag_exploit)
+        TriggerServerEvent("sp-adminmenu:server:sendLogs", "exploit", Config.Locales.admintag_exploit)
     end
 end)
 
@@ -323,7 +323,7 @@ RegisterNUICallback("invisible", function(data, cb)
     isInvisible = not isInvisible
     
     if isInvisible then
-        TriggerServerEvent("snipe-menu:server:sendLogs", "triggered", Config.Locales.invisible_used)
+        TriggerServerEvent("sp-adminmenu:server:sendLogs", "triggered", Config.Locales.invisible_used)
     end
     
     if hasAdminPerms then
@@ -339,17 +339,17 @@ RegisterNUICallback("invisible", function(data, cb)
         
         SetEntityAlpha(PlayerPedId(), isInvisible and 100 or 255, false)
     else
-        TriggerServerEvent("snipe-menu:server:sendLogs", "exploit", Config.Locales.invisible_exploit)
+        TriggerServerEvent("sp-adminmenu:server:sendLogs", "exploit", Config.Locales.invisible_exploit)
     end
 end)
 
 RegisterNUICallback("teleportmarker", function(data, cb)
     if hasAdminPerms then
-        TriggerEvent("snipe-menu:client:teleportMarker")
-        TriggerServerEvent("snipe-menu:server:sendLogs", "triggered", Config.Locales.teleport_marker_used)
+        TriggerEvent("sp-adminmenu:client:teleportMarker")
+        TriggerServerEvent("sp-adminmenu:server:sendLogs", "triggered", Config.Locales.teleport_marker_used)
         cb("ok")
     else
-        TriggerServerEvent("snipe-menu:server:sendLogs", "exploit", Config.Locales.teleport_exploit)
+        TriggerServerEvent("sp-adminmenu:server:sendLogs", "exploit", Config.Locales.teleport_exploit)
     end
 end)
 
@@ -360,7 +360,7 @@ RegisterNUICallback("superjump", function(data, cb)
         cb("ok")
         ToggleSuperJump()
     else
-        TriggerServerEvent("snipe-menu:server:sendLogs", "exploit", Config.Locales.super_jump_exploit)
+        TriggerServerEvent("sp-adminmenu:server:sendLogs", "exploit", Config.Locales.super_jump_exploit)
     end
 end)
 
@@ -384,16 +384,16 @@ RegisterNUICallback("toggleminimap", function(data, cb)
         cb("ok")
         ToggleMinimap()
     else
-        TriggerServerEvent("snipe-menu:server:sendLogs", "exploit", Config.Locales.super_jump_exploit)
+        TriggerServerEvent("sp-adminmenu:server:sendLogs", "exploit", Config.Locales.super_jump_exploit)
     end
 end)
 
 RegisterNUICallback("removeStress", function(data, cb)
     if hasAdminPerms then
-        TriggerServerEvent("snipe-menu:server:removeStress", data.selectedPlayer.id)
+        TriggerServerEvent("sp-adminmenu:server:removeStress", data.selectedPlayer.id)
         cb("ok")
     else
-        TriggerServerEvent("snipe-menu:server:sendLogs", "exploit", Config.Locales.stress_exploit)
+        TriggerServerEvent("sp-adminmenu:server:sendLogs", "exploit", Config.Locales.stress_exploit)
     end
 end)
 
@@ -408,7 +408,7 @@ RegisterNUICallback("getVector2", function(data, cb)
             FormatCoordinate(coords.x, 3), 
             FormatCoordinate(coords.y, 3)))
     else
-        TriggerServerEvent("snipe-menu:server:sendLogs", "exploit", Config.Locales.get_vector3_exploit)
+        TriggerServerEvent("sp-adminmenu:server:sendLogs", "exploit", Config.Locales.get_vector3_exploit)
     end
 end)
 
@@ -420,7 +420,7 @@ RegisterNUICallback("getVector3", function(data, cb)
             FormatCoordinate(coords.y, 3), 
             FormatCoordinate(coords.z, 3)))
     else
-        TriggerServerEvent("snipe-menu:server:sendLogs", "exploit", Config.Locales.get_vector3_exploit)
+        TriggerServerEvent("sp-adminmenu:server:sendLogs", "exploit", Config.Locales.get_vector3_exploit)
     end
 end)
 
@@ -435,7 +435,7 @@ RegisterNUICallback("getVector4", function(data, cb)
             FormatCoordinate(coords.z, 3), 
             FormatCoordinate(heading, 3)))
     else
-        TriggerServerEvent("snipe-menu:server:sendLogs", "exploit", Config.Locales.get_vector4_exploit)
+        TriggerServerEvent("sp-adminmenu:server:sendLogs", "exploit", Config.Locales.get_vector4_exploit)
     end
 end)
 
@@ -450,7 +450,7 @@ RegisterNUICallback("getJson", function(data, cb)
             FormatCoordinate(coords.z, 3), 
             FormatCoordinate(heading, 3)))
     else
-        TriggerServerEvent("snipe-menu:server:sendLogs", "exploit", Config.Locales.get_json_exploit)
+        TriggerServerEvent("sp-adminmenu:server:sendLogs", "exploit", Config.Locales.get_json_exploit)
     end
 end)
 
@@ -464,13 +464,13 @@ function RemoveInvisibleEffect()
     end
 end
 
-RegisterNetEvent("snipe-menu:client:invisibleEffect", function()
+RegisterNetEvent("sp-adminmenu:client:invisibleEffect", function()
     if hasAdminPerms then
         isInvisible = not isInvisible
         
         if isInvisible then
             enabledButtons[#enabledButtons + 1] = "Invisible"
-            TriggerServerEvent("snipe-menu:server:sendLogs", "triggered", Config.Locales.invisible_used)
+            TriggerServerEvent("sp-adminmenu:server:sendLogs", "triggered", Config.Locales.invisible_used)
         else
             RemoveInvisibleEffect()
         end
@@ -486,11 +486,11 @@ RegisterNetEvent("snipe-menu:client:invisibleEffect", function()
         
         SetEntityAlpha(PlayerPedId(), isInvisible and 100 or 255, false)
     else
-        TriggerServerEvent("snipe-menu:server:sendLogs", "exploit", Config.Locales.invisible_exploit)
+        TriggerServerEvent("sp-adminmenu:server:sendLogs", "exploit", Config.Locales.invisible_exploit)
     end
 end)
 
-RegisterNetEvent("snipe-menu:client:godMode", function()
+RegisterNetEvent("sp-adminmenu:client:godMode", function()
     if hasAdminPerms then
         GodModethread()
         
@@ -508,6 +508,6 @@ RegisterNetEvent("snipe-menu:client:godMode", function()
             ShowNotification(Config.Locales.god_mode_disabled, "error")
         end
     else
-        TriggerServerEvent("snipe-menu:server:sendLogs", "exploit", Config.Locales.god_mode_exploit)
+        TriggerServerEvent("sp-adminmenu:server:sendLogs", "exploit", Config.Locales.god_mode_exploit)
     end
 end)

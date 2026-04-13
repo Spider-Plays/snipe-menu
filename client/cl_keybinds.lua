@@ -5,7 +5,7 @@ RegisterCommand("noclip", function()
         if isGod then hasNoclipPerms = true end
         if not hasNoclipPerms then
             local p = promise.new()
-            TriggerCallback("snipe-menu:server:getRoleWisePanels", function(result)
+            TriggerCallback("sp-adminmenu:server:getRoleWisePanels", function(result)
                 p:resolve(result)
             end, userAccesses)
             panelsToDisplay = Citizen.Await(p)
@@ -46,7 +46,7 @@ RegisterCommand("tpm", function()
         if isGod then hasNoclipPerms = true end
         if not hasNoclipPerms then
             local p = promise.new()
-            TriggerCallback("snipe-menu:server:getRoleWisePanels", function(result)
+            TriggerCallback("sp-adminmenu:server:getRoleWisePanels", function(result)
                 p:resolve(result)
             end, userAccesses)
             panelsToDisplay = Citizen.Await(p)
@@ -59,14 +59,14 @@ RegisterCommand("tpm", function()
             end
         end
         if hasNoclipPerms then
-            TriggerEvent("snipe-menu:client:teleportMarker")
+            TriggerEvent("sp-adminmenu:client:teleportMarker")
         end
     end        
 end)
 
 RegisterCommand("fixvehiclekeybind", function()
     -- if hasAdminPerms then
-    --     TriggerEvent("snipe-menu:client:FixVehicle")
+    --     TriggerEvent("sp-adminmenu:client:FixVehicle")
     --     ShowNotification("[Admin Menu] Vehicle has been fixed", "success")
     -- end
     if hasAdminPerms then
@@ -75,7 +75,7 @@ RegisterCommand("fixvehiclekeybind", function()
         if isGod then hasFixVehiclePerms = true end
         if not hasFixVehiclePerms then
             local p = promise.new()
-            TriggerCallback("snipe-menu:server:getRoleWisePanels", function(result)
+            TriggerCallback("sp-adminmenu:server:getRoleWisePanels", function(result)
                 p:resolve(result)
             end, userAccesses)
             panelsToDisplay = Citizen.Await(p)
@@ -88,7 +88,7 @@ RegisterCommand("fixvehiclekeybind", function()
             end
         end
         if hasFixVehiclePerms then
-            TriggerEvent("snipe-menu:client:FixVehicle")
+            TriggerEvent("sp-adminmenu:client:FixVehicle")
             ShowNotification("[Admin Menu] Vehicle has been fixed", "success")
         end
     end
@@ -101,7 +101,7 @@ RegisterCommand("admincarkeybind", function()
         if isGod then hasAdminCarPerms = true end
         if not hasAdminCarPerms then
             local p = promise.new()
-            TriggerCallback("snipe-menu:server:getRoleWisePanels", function(result)
+            TriggerCallback("sp-adminmenu:server:getRoleWisePanels", function(result)
                 p:resolve(result)
             end, userAccesses)
             panelsToDisplay = Citizen.Await(p)
@@ -114,7 +114,7 @@ RegisterCommand("admincarkeybind", function()
             end
         end
         if hasAdminCarPerms then
-            TriggerEvent("snipe-menu:client:addAdminCar")
+            TriggerEvent("sp-adminmenu:client:addAdminCar")
         end
     end
 end)
@@ -127,7 +127,7 @@ RegisterCommand("godmodekeybind", function()
         if isGod then hasGodModePerms = true end
         if not hasGodModePerms then
             local p = promise.new()
-            TriggerCallback("snipe-menu:server:getRoleWisePanels", function(result)
+            TriggerCallback("sp-adminmenu:server:getRoleWisePanels", function(result)
                 p:resolve(result)
             end, userAccesses)
             panelsToDisplay = Citizen.Await(p)
@@ -140,7 +140,7 @@ RegisterCommand("godmodekeybind", function()
             end
         end
         if hasGodModePerms then
-            TriggerEvent("snipe-menu:client:godMode")
+            TriggerEvent("sp-adminmenu:client:godMode")
         end
     end
 end)
@@ -153,7 +153,7 @@ RegisterCommand("invisiblekeybind", function()
         if isGod then hasInvisiblePerms = true end
         if not hasInvisiblePerms then
             local p = promise.new()
-            TriggerCallback("snipe-menu:server:getRoleWisePanels", function(result)
+            TriggerCallback("sp-adminmenu:server:getRoleWisePanels", function(result)
                 p:resolve(result)
             end, userAccesses)
             panelsToDisplay = Citizen.Await(p)
@@ -166,7 +166,7 @@ RegisterCommand("invisiblekeybind", function()
             end
         end
         if hasInvisiblePerms then
-            TriggerEvent("snipe-menu:client:invisibleEffect")
+            TriggerEvent("sp-adminmenu:client:invisibleEffect")
         end
     end
 end)
@@ -178,7 +178,7 @@ RegisterCommand("toggleblipskeybind", function()
         if isGod then hasToggleBlipsPerms = true end
         if not hasToggleBlipsPerms then
             local p = promise.new()
-            TriggerCallback("snipe-menu:server:getRoleWisePanels", function(result)
+            TriggerCallback("sp-adminmenu:server:getRoleWisePanels", function(result)
                 p:resolve(result)
             end, userAccesses)
             panelsToDisplay = Citizen.Await(p)
@@ -203,7 +203,7 @@ RegisterCommand("togglenameskeybind", function()
         if isGod then hasToggleNamesPerms = true end
         if not hasToggleNamesPerms then
             local p = promise.new()
-            TriggerCallback("snipe-menu:server:getRoleWisePanels", function(result)
+            TriggerCallback("sp-adminmenu:server:getRoleWisePanels", function(result)
                 p:resolve(result)
             end, userAccesses)
             panelsToDisplay = Citizen.Await(p)
@@ -216,7 +216,7 @@ RegisterCommand("togglenameskeybind", function()
             end
         end
         if hasToggleNamesPerms then
-            TriggerEvent("snipe-menu:client:toggleNames")
+            TriggerEvent("sp-adminmenu:client:toggleNames")
         end
     end
 end)
@@ -229,7 +229,7 @@ if Config.EnableReports then
     TriggerEvent('chat:addSuggestion', '/togglereports', "Toggle Report Notifications (Admin Only)")
     RegisterCommand("togglereports", function()
         if hasAdminPerms then
-            TriggerServerEvent("snipe-menu:server:toggleReports")
+            TriggerServerEvent("sp-adminmenu:server:toggleReports")
         end
     end)
 end
@@ -249,7 +249,7 @@ TriggerEvent("chat:removeSuggestion", "/invisiblekeybind")
 TriggerEvent("chat:removeSuggestion", "/toggleblipskeybind")
 TriggerEvent("chat:removeSuggestion", "/togglenameskeybind")
 
-RegisterNetEvent("snipe-menu:client:addkeymapping", function()
+RegisterNetEvent("sp-adminmenu:client:addkeymapping", function()
     if hasAdminPerms then
         RegisterKeyMapping("noclip", "No Clip", "keyboard", "n")
         RegisterKeyMapping("+deletelaser", "Delete Laser", "keyboard", "l")

@@ -3,7 +3,7 @@
 function OpenReports()
     local p = promise.new()
 
-    TriggerCallback("snipe-menu:server:getReportsForUser", function(result)
+    TriggerCallback("sp-adminmenu:server:getReportsForUser", function(result)
         p:resolve(result)
     end)
 
@@ -24,11 +24,11 @@ RegisterNUICallback("closeReport", function(data, callback)
 end)
 
 RegisterNUICallback("sendReportMessage", function(data, callback)
-    TriggerServerEvent("snipe-menu:server:reportSent", data.newMessage)
+    TriggerServerEvent("sp-adminmenu:server:reportSent", data.newMessage)
     Wait(100)
 
     local p = promise.new()
-    TriggerCallback("snipe-menu:server:getReportsForUser", function(result)
+    TriggerCallback("sp-adminmenu:server:getReportsForUser", function(result)
         p:resolve(result)
     end)
 
@@ -39,7 +39,7 @@ end)
 RegisterNUICallback("getAllUserNameWithReports", function(data, callback)
     local p = promise.new()
 
-    TriggerCallback("snipe-menu:server:getPlayersWithReports", function(result)
+    TriggerCallback("sp-adminmenu:server:getPlayersWithReports", function(result)
         p:resolve(result)
     end)
 
@@ -50,11 +50,11 @@ RegisterNUICallback("getAllUserNameWithReports", function(data, callback)
 end)
 
 RegisterNUICallback("sendMessageFromAdmin", function(data, callback)
-    TriggerServerEvent("snipe-menu:server:adminReply", data.message, data.playerId)
+    TriggerServerEvent("sp-adminmenu:server:adminReply", data.message, data.playerId)
     Wait(100)
 
     local p = promise.new()
-    TriggerCallback("snipe-menu:server:getUserChats", function(result)
+    TriggerCallback("sp-adminmenu:server:getUserChats", function(result)
         p:resolve(result)
     end, data.playerId)
 
@@ -65,7 +65,7 @@ end)
 RegisterNUICallback("getPlayerChats", function(data, callback)
     local p = promise.new()
 
-    TriggerCallback("snipe-menu:server:getUserChats", function(result)
+    TriggerCallback("sp-adminmenu:server:getUserChats", function(result)
         p:resolve(result)
     end, data.playerId)
 
@@ -77,12 +77,12 @@ RegisterNUICallback("teleportToPlayerReport", function(data, callback)
     local targetId = data.playerId
     local myCoords = GetEntityCoords(PlayerPedId())
 
-    TriggerServerEvent("snipe-menu:server:playerTeleportFromReport", myCoords, targetId)
+    TriggerServerEvent("sp-adminmenu:server:playerTeleportFromReport", myCoords, targetId)
     callback("ok")
 end)
 
 RegisterNUICallback("sendBackReport", function(data, callback)
-    TriggerServerEvent("snipe-menu:server:sendBackPlayer", data.playerId)
+    TriggerServerEvent("sp-adminmenu:server:sendBackPlayer", data.playerId)
     callback("ok")
 end)
 
@@ -98,8 +98,8 @@ RegisterNUICallback("spectatePlayerReport", function(data, callback)
         return
     end
 
-    TriggerEvent("snipe-menu:client:forceCloseAdminMenu")
-    TriggerServerEvent("snipe-menu:server:startSpectating", targetId)
+    TriggerEvent("sp-adminmenu:client:forceCloseAdminMenu")
+    TriggerServerEvent("sp-adminmenu:server:startSpectating", targetId)
     callback("ok")
 end)
 
@@ -108,17 +108,17 @@ RegisterNUICallback("bringPlayerReport", function(data, callback)
         local targetId = tonumber(data.playerId)
         local myCoords = GetEntityCoords(PlayerPedId())
 
-        TriggerServerEvent("snipe-menu:server:bringPlayer", targetId, myCoords)
+        TriggerServerEvent("sp-adminmenu:server:bringPlayer", targetId, myCoords)
         callback("ok")
     else
-        TriggerServerEvent("snipe-menu:server:sendLogs", "exploit", Config.Locales.bring_player_exploit)
+        TriggerServerEvent("sp-adminmenu:server:sendLogs", "exploit", Config.Locales.bring_player_exploit)
     end
 end)
 
 RegisterNUICallback("closeTicket", function(data, callback)
     local p = promise.new()
 
-    TriggerCallback("snipe-menu:server:closeTicket", function(result)
+    TriggerCallback("sp-adminmenu:server:closeTicket", function(result)
         p:resolve(result)
     end, data.playerId, data.playerName)
 
@@ -126,10 +126,10 @@ RegisterNUICallback("closeTicket", function(data, callback)
     callback("ok")
 end)
 
-RegisterNetEvent("snipe-menu:client:showReportUnread", function()
+RegisterNetEvent("sp-adminmenu:client:showReportUnread", function()
     SendNUIMessage({ action = "showUnreadReport" })
 end)
 
-RegisterNetEvent("snipe-menu:client:hideReportUnread", function()
+RegisterNetEvent("sp-adminmenu:client:hideReportUnread", function()
     SendNUIMessage({ action = "hideUnreadReport" })
 end)

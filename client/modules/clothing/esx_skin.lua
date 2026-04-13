@@ -1,5 +1,5 @@
 if Config.Clothing ~= "esx_skin" then return end
-RegisterNetEvent("snipe-menu:client:revertClothing", function()
+RegisterNetEvent("sp-adminmenu:client:revertClothing", function()
     local p = promise.new()
     ESX.TriggerServerCallback('esx_skin:getPlayerSkin', function(skin, jobSkin)
         p:resolve(skin)

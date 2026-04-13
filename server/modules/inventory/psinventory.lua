@@ -1,7 +1,7 @@
 if Config.Inventory ~= "ps" then return end
 
 if Config.NewQBInventory then
-    RegisterServerEvent("snipe-menu:server:OpenInventoryQBCompatibility", function(_type, inventoryName, data)
+    RegisterServerEvent("sp-adminmenu:server:OpenInventoryQBCompatibility", function(_type, inventoryName, data)
 
         local source = source
         if not onlineAdmins[source] then return end

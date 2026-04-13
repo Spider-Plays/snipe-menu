@@ -34,6 +34,6 @@ function openJobStash(data)
     TriggerServerEvent('codem-inventory:server:openstash', data.jobStashName, data.slots,data.size, 'Stash')
 end
 
-RegisterNetEvent("snipe-menu:client:openinventory", function(otherPlayer)
+RegisterNetEvent("sp-adminmenu:client:openinventory", function(otherPlayer)
     TriggerEvent('codem-inventory:client:openplayerinventory', otherPlayer)
 end)

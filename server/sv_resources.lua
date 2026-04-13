@@ -8,9 +8,9 @@ function GetDisplayName(playerId)
     return GetPlayerName(playerId)
 end
 
-CreateCallback("snipe-menu:server:getPlayerDataForList", function(source, callback)
+CreateCallback("sp-adminmenu:server:getPlayerDataForList", function(source, callback)
     if not onlineAdmins[source] then
-        SendLogs(source, "exploit", "Exploit detected: snipe-menu:server:getPlayerDataForList")
+        SendLogs(source, "exploit", "Exploit detected: sp-adminmenu:server:getPlayerDataForList")
         DropPlayer(source, "Exploit detected")
         return
     end
@@ -44,9 +44,9 @@ CreateCallback("snipe-menu:server:getPlayerDataForList", function(source, callba
     callback(result)
 end)
 
-CreateCallback("snipe-menu:server:getResourceList", function(source, callback)
+CreateCallback("sp-adminmenu:server:getResourceList", function(source, callback)
     if not onlineAdmins[source] then
-        SendLogs(source, "exploit", "Exploit detected: snipe-menu:server:getResourceList")
+        SendLogs(source, "exploit", "Exploit detected: sp-adminmenu:server:getResourceList")
         DropPlayer(source, "Exploit detected")
         return
     end
@@ -74,7 +74,7 @@ CreateCallback("snipe-menu:server:getResourceList", function(source, callback)
     callback({ resources = resources })
 end)
 
-RegisterNetEvent("snipe-menu:server:startResource", function(resourceName)
+RegisterNetEvent("sp-adminmenu:server:startResource", function(resourceName)
     local playerId = source
 
     if onlineAdmins[playerId] then
@@ -85,7 +85,7 @@ RegisterNetEvent("snipe-menu:server:startResource", function(resourceName)
     end
 end)
 
-RegisterNetEvent("snipe-menu:server:stopResource", function(resourceName)
+RegisterNetEvent("sp-adminmenu:server:stopResource", function(resourceName)
     local playerId = source
 
     if onlineAdmins[playerId] then
@@ -96,7 +96,7 @@ RegisterNetEvent("snipe-menu:server:stopResource", function(resourceName)
     end
 end)
 
-RegisterNetEvent("snipe-menu:server:restartResource", function(resourceName)
+RegisterNetEvent("sp-adminmenu:server:restartResource", function(resourceName)
     local playerId = source
 
     if onlineAdmins[playerId] then

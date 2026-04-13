@@ -3,7 +3,7 @@ if Config.Framework ~= "esx" then return end
 ESX = nil
 ESX = exports["es_extended"]:getSharedObject()
 
-RegisterServerEvent("snipe-menu:server:forceLogout", function(id)
+RegisterServerEvent("sp-adminmenu:server:forceLogout", function(id)
     local src = source
     if src ~= 0 and onlineAdmins[src] then
         TriggerEvent("esx:playerLogout") -- only works if you use multicharacter (ESX)
@@ -15,7 +15,7 @@ end)
 
 function GetPlayerInfo(id)
     if not onlineAdmins[source] then 
-        SendLogs(source, "exploit", "Exploit detected: snipe-menu:server:getPlayerInfo")
+        SendLogs(source, "exploit", "Exploit detected: sp-adminmenu:server:getPlayerInfo")
         DropPlayer(source, "Exploit detected")
         return
     end
@@ -125,7 +125,7 @@ function ChangeVehiclePlate(src, oldPlate, newPlate)
     end
     local query = 'UPDATE owned_vehicles SET plate = ? WHERE plate = ?'
     MySQL.query.await(query, {newPlate, oldPlate})
-    TriggerClientEvent('snipe-menu:client:changePlate', src, newPlate)
+    TriggerClientEvent('sp-adminmenu:client:changePlate', src, newPlate)
     SendLogs(src, "triggered", Config.Locales["plate_change_used"]..oldPlate.." to "..newPlate)
 end
 
@@ -135,13 +135,13 @@ end
 
 -- specific to ESX
 -- used for ESX. To make changes, look in client/open/modules/framework/esx.lua
-CreateCallback('snipe-menu:server:getAllJobs', function(source, cb)
+CreateCallback('sp-adminmenu:server:getAllJobs', function(source, cb)
     local returnData = ESX.GetJobs()
     cb(returnData)
 end)
 
 
-CreateCallback('snipe-menu:server:getAllItems', function(source, cb)
+CreateCallback('sp-adminmenu:server:getAllItems', function(source, cb)
     cb(ESX.Items) -- for ESX
 end)
 
@@ -154,7 +154,7 @@ CreateThread(function()
     categories = MySQL.query.await('SELECT * FROM vehicle_categories')
 end)
 
-CreateCallback("snipe-menu:server:getAllVehicles", function(source, cb)
+CreateCallback("sp-adminmenu:server:getAllVehicles", function(source, cb)
     for i = 1, #vehicles do
 		local vehicle = vehicles[i]
 		for j = 1, #categories do

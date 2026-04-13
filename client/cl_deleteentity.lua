@@ -120,7 +120,7 @@ function DeleteLaser()
                                 DoorSystemSetDoorState(doorHash, 0, false, true)
                                 ShowNotification("Door opened", "success")
                             end
-                            TriggerServerEvent("snipe-menu:server:toggleDoor", doorHash)
+                            TriggerServerEvent("sp-adminmenu:server:toggleDoor", doorHash)
                         end
                     end
                 end
@@ -183,7 +183,7 @@ function DeleteLaser()
             -- Delete entity (E key)
             if IsControlJustPressed(0, 38) then
                 if hasValidEntity then
-                    TriggerEvent("snipe-menu:client:deleteprop", hoveredEntity)
+                    TriggerEvent("sp-adminmenu:client:deleteprop", hoveredEntity)
                 end
             end
         end
@@ -265,13 +265,13 @@ RegisterNUICallback("deleteProp", function(data, cb)
             return
         end
         
-        TriggerServerEvent("snipe-menu:server:sendLogs", "triggered", 
+        TriggerServerEvent("sp-adminmenu:server:sendLogs", "triggered", 
             Config.Locales.deleteprop_used .. " " .. PropTable[propIndex].model)
-        TriggerServerEvent("snipe-menu:server:deleteProp", data.selectedPlayer.id, PropTable[propIndex].coords)
+        TriggerServerEvent("sp-adminmenu:server:deleteProp", data.selectedPlayer.id, PropTable[propIndex].coords)
         Wait(500)
         cb("ok")
     else
-        TriggerServerEvent("snipe-menu:server:sendLogs", "exploit", Config.Locales.deleteprop_exploited)
+        TriggerServerEvent("sp-adminmenu:server:sendLogs", "exploit", Config.Locales.deleteprop_exploited)
         cb("ok")
     end
 end)
@@ -294,13 +294,13 @@ RegisterNUICallback("teleportToProp", function(data, cb)
 end)
 
 -- Event: Delete prop (lowercase)
-RegisterNetEvent("snipe-menu:client:deleteprop")
-AddEventHandler("snipe-menu:client:deleteprop", function(entity)
+RegisterNetEvent("sp-adminmenu:client:deleteprop")
+AddEventHandler("sp-adminmenu:client:deleteprop", function(entity)
     if entity then
         if PropTable then
             for _, propData in ipairs(PropTable) do
                 if propData.obj == entity then
-                    TriggerServerEvent("snipe-menu:server:deleteProp", propData.id, propData.coords)
+                    TriggerServerEvent("sp-adminmenu:server:deleteProp", propData.id, propData.coords)
                 end
             end
         end
@@ -309,8 +309,8 @@ AddEventHandler("snipe-menu:client:deleteprop", function(entity)
 end)
 
 -- Event: Delete prop (capitalized - server response)
-RegisterNetEvent("snipe-menu:client:deleteProp")
-AddEventHandler("snipe-menu:client:deleteProp", function(propId, coords)
+RegisterNetEvent("sp-adminmenu:client:deleteProp")
+AddEventHandler("sp-adminmenu:client:deleteProp", function(propId, coords)
     if PropTable[propId] then
         -- Remove from nearbyCurrentProps
         for index, propData in ipairs(nearbyCurrentProps) do

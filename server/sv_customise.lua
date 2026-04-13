@@ -29,7 +29,7 @@ function GetPlayerAllLicenses(id)
     return returnData
 end
 
-RegisterServerEvent("snipe-menu:server:notifyAdmins", function(name)
+RegisterServerEvent("sp-adminmenu:server:notifyAdmins", function(name)
     for k, v in pairs(onlineAdmins) do
         if v then
             ShowNotification(k, "New Admin message from: "..name, "success")

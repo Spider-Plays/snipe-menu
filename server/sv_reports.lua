@@ -56,12 +56,12 @@ end
 function HandleTeleportBack(playerName, adminId)
     local teleportData = teleportedUsingReports[playerName]
     if teleportData and teleportData.adminId == adminId then
-        TriggerClientEvent("snipe-menu:client:teleporttoplayer", teleportData.adminId, teleportData.oldCoords)
+        TriggerClientEvent("sp-adminmenu:client:teleporttoplayer", teleportData.adminId, teleportData.oldCoords)
     end
     teleportedUsingReports[playerName] = nil
 end
 
-CreateCallback("snipe-menu:server:getReportsForUser", function(source, callback, _)
+CreateCallback("sp-adminmenu:server:getReportsForUser", function(source, callback, _)
     local playerName = GetPlayerName(source)
     local reportData = reports[playerName]
 
@@ -71,7 +71,7 @@ CreateCallback("snipe-menu:server:getReportsForUser", function(source, callback,
     })
 end)
 
-CreateCallback("snipe-menu:server:getPlayersWithReports", function(source, callback)
+CreateCallback("sp-adminmenu:server:getPlayersWithReports", function(source, callback)
     local result = { players = {} }
 
     for playerName, messages in pairs(reports) do
@@ -88,16 +88,16 @@ CreateCallback("snipe-menu:server:getPlayersWithReports", function(source, callb
     callback(result)
 end)
 
-CreateCallback("snipe-menu:server:getUserChats", function(source, callback, playerName)
+CreateCallback("sp-adminmenu:server:getUserChats", function(source, callback, playerName)
     callback({
         chats = reports[playerName],
         currentUser = GetPlayerName(source)
     })
 end)
 
-CreateCallback("snipe-menu:server:closeTicket", function(source, callback, targetId, fallbackName)
+CreateCallback("sp-adminmenu:server:closeTicket", function(source, callback, targetId, fallbackName)
     if not onlineAdmins[source] then
-        SendLogs(source, "exploit", "Exploit detected: snipe-menu:server:closeTicket")
+        SendLogs(source, "exploit", "Exploit detected: sp-adminmenu:server:closeTicket")
         DropPlayer(source, "Exploit detected")
         return
     end
@@ -115,7 +115,7 @@ CreateCallback("snipe-menu:server:closeTicket", function(source, callback, targe
     HandleTeleportBack(playerName, source)
 
     ShowNotification(reports2[playerName], Config.Locales.ticket_closed, "success")
-    TriggerClientEvent("snipe-menu:client:hideReportUnread", reports2[playerName])
+    TriggerClientEvent("sp-adminmenu:client:hideReportUnread", reports2[playerName])
     ReportClosed(reports2[playerName], playerName, source)
 
     reports[playerName] = nil
@@ -136,13 +136,13 @@ function CloseTicket(targetId, fallbackName)
     HandleTeleportBack(playerName, source)
 
     ShowNotification(reports2[playerName], Config.Locales.ticket_closed, "success")
-    TriggerClientEvent("snipe-menu:client:hideReportUnread", reports2[playerName])
+    TriggerClientEvent("sp-adminmenu:client:hideReportUnread", reports2[playerName])
 
     reports[playerName] = nil
 end
 exports("CloseTicket", CloseTicket)
 
-RegisterServerEvent("snipe-menu:server:playerTeleportFromReport", function(adminOldCoords, targetId)
+RegisterServerEvent("sp-adminmenu:server:playerTeleportFromReport", function(adminOldCoords, targetId)
     local playerId = source
 
     if playerId == targetId then
@@ -167,5 +167,5 @@ RegisterServerEvent("snipe-menu:server:playerTeleportFromReport", function(admin
     }
 
     SendLogs(playerId, "triggered", Config.Locales.teleport_player_used .. targetName)
-    TriggerClientEvent("snipe-menu:client:teleporttoplayer", playerId, targetCoords)
+    TriggerClientEvent("sp-adminmenu:client:teleporttoplayer", playerId, targetCoords)
 end)

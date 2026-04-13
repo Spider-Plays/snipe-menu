@@ -1,6 +1,6 @@
 if Config.Inventory ~= "core"  then return end
 
-RegisterNetEvent("snipe-menu:server:openStash", function(stashName)
+RegisterNetEvent("sp-adminmenu:server:openStash", function(stashName)
     local src  = source
     if not onlineAdmins[src] then return end
 

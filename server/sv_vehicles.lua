@@ -1,4 +1,4 @@
-RegisterServerEvent("snipe-menu:server:changePlate", function(oldplate, newPlate)
+RegisterServerEvent("sp-adminmenu:server:changePlate", function(oldplate, newPlate)
     local src = source
     if src ~= 0 and onlineAdmins[src] then
         ChangeVehiclePlate(src, oldplate, newPlate)
@@ -7,7 +7,7 @@ RegisterServerEvent("snipe-menu:server:changePlate", function(oldplate, newPlate
     end
 end)
 
-RegisterServerEvent("snipe-menu:server:givecar", function(playerid, carname, properties, type)
+RegisterServerEvent("sp-adminmenu:server:givecar", function(playerid, carname, properties, type)
     local src = source
     if src ~= 0 and onlineAdmins[src] then
         GiveCarToPlayer(playerid, carname, properties, type, src)
@@ -17,7 +17,7 @@ RegisterServerEvent("snipe-menu:server:givecar", function(playerid, carname, pro
     end
 end)
 
-RegisterServerEvent("snipe-menu:server:addAdminCar", function(carname, properties, type)
+RegisterServerEvent("sp-adminmenu:server:addAdminCar", function(carname, properties, type)
     local src = source
     if src ~= 0 and onlineAdmins[src] then
         AdminCarVehicle(carname, properties, type, src)
@@ -29,16 +29,16 @@ RegisterServerEvent("snipe-menu:server:addAdminCar", function(carname, propertie
 end)
 
 
-CreateCallback("snipe-menu:server:getOutsideVehicles", function(source, cb)
+CreateCallback("sp-adminmenu:server:getOutsideVehicles", function(source, cb)
     if not onlineAdmins[source] then 
-        SendLogs(source, "exploit", "Exploit detected: snipe-menu:server:getOutsideVehicles")
+        SendLogs(source, "exploit", "Exploit detected: sp-adminmenu:server:getOutsideVehicles")
         DropPlayer(source, "Exploit detected")
         return
     end
     cb(GetOutsideVehicles())
 end)
 
-RegisterServerEvent("snipe-menu:server:changeVehicleState", function(plate)
+RegisterServerEvent("sp-adminmenu:server:changeVehicleState", function(plate)
     local src = source
     if src ~= 0 and onlineAdmins[src] then
         ChangeVehicleState(plate)

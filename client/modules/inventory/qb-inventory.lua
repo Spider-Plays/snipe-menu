@@ -24,7 +24,7 @@ function OpenStash(stashName, owner)
         TriggerServerEvent("inventory:server:OpenInventory", "stash", stashName, other)
         TriggerEvent("inventory:client:SetCurrentStash", stashName)
     else
-        TriggerServerEvent("snipe-menu:server:OpenInventoryQBCompatibility", "stash", stashName)
+        TriggerServerEvent("sp-adminmenu:server:OpenInventoryQBCompatibility", "stash", stashName)
     end
 end
 
@@ -37,7 +37,7 @@ function OpenTrunk(vehicle, plate)
         TriggerServerEvent("inventory:server:OpenInventory", "trunk", plate, other)
         TriggerEvent("inventory:client:SetCurrentTrunk", plate)
     else
-        TriggerServerEvent("snipe-menu:server:OpenInventoryQBCompatibility", "stash", "trunk-"..plate)
+        TriggerServerEvent("sp-adminmenu:server:OpenInventoryQBCompatibility", "stash", "trunk-"..plate)
     end
 end
 
@@ -50,7 +50,7 @@ function OpenGlovebox(plate)
         TriggerServerEvent("inventory:server:OpenInventory", "glovebox", plate, other)
         TriggerEvent("inventory:client:SetCurrentGlovebox", plate)
     else
-        TriggerServerEvent("snipe-menu:server:OpenInventoryQBCompatibility", "stash", "glovebox-"..plate)
+        TriggerServerEvent("sp-adminmenu:server:OpenInventoryQBCompatibility", "stash", "glovebox-"..plate)
     end
 end
 
@@ -63,11 +63,11 @@ function openJobStash(data)
         TriggerServerEvent("inventory:server:OpenInventory", "stash", data.jobStashName, other)
         TriggerEvent("inventory:client:SetCurrentStash", data.jobStashName)
     else
-        TriggerServerEvent("snipe-menu:server:OpenInventoryQBCompatibility", "stash", data.jobStashName, {maxweight = data.size, slots = data.slots})
+        TriggerServerEvent("sp-adminmenu:server:OpenInventoryQBCompatibility", "stash", data.jobStashName, {maxweight = data.size, slots = data.slots})
     end
 end
 
-RegisterNetEvent("snipe-menu:client:openinventory", function(otherPlayer)
+RegisterNetEvent("sp-adminmenu:client:openinventory", function(otherPlayer)
     if not Config.NewQBInventory then
         local other = {
             maxweight = 1000000,
@@ -75,6 +75,6 @@ RegisterNetEvent("snipe-menu:client:openinventory", function(otherPlayer)
         }
         TriggerServerEvent("inventory:server:OpenInventory", "otherplayer", otherPlayer)
     else
-        TriggerServerEvent("snipe-menu:server:OpenInventoryQBCompatibility", "player", otherPlayer)
+        TriggerServerEvent("sp-adminmenu:server:OpenInventoryQBCompatibility", "player", otherPlayer)
     end
 end)

@@ -1,5 +1,5 @@
 if Config.Chat ~= "okok" then return end
-RegisterServerEvent("snipe-menu:server:sendDmToPlayer", function(playerId, reason)
+RegisterServerEvent("sp-adminmenu:server:sendDmToPlayer", function(playerId, reason)
     local src = source
     if src ~= 0 and onlineAdmins[src] then
         SendLogs(src, "triggered", Config.Locales["send_dm_used"]..GetPlayerName(playerId).." reason: "..reason)
@@ -8,7 +8,7 @@ RegisterServerEvent("snipe-menu:server:sendDmToPlayer", function(playerId, reaso
     end
 end)
 
-RegisterServerEvent("snipe-menu:server:Announce", function(message)
+RegisterServerEvent("sp-adminmenu:server:Announce", function(message)
     local src = source
     if src ~= 0 and onlineAdmins[src] then
         SendLogs(src, "triggered", Config.Locales["announce_used"].." :"..message)
@@ -16,7 +16,7 @@ RegisterServerEvent("snipe-menu:server:Announce", function(message)
     end
 end)
 
-RegisterServerEvent("snipe-menu:server:warnPlayer", function(playerId, reason)
+RegisterServerEvent("sp-adminmenu:server:warnPlayer", function(playerId, reason)
     local src = source
     if src ~= 0 and onlineAdmins[src] then
         SendLogs(src, "triggered", Config.Locales["warn_player_used"]..GetPlayerName(playerId).." reason: "..reason)

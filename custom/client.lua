@@ -4,7 +4,7 @@ end)
 
 RegisterNUICallback("customfetchurl", function(_, cb)
     local p = promise.new()
-    TriggerCallback("snipe-menu:server:fetchPlayerListCustom", function(data)
+    TriggerCallback("sp-adminmenu:server:fetchPlayerListCustom", function(data)
         p:resolve(data)
     end)
     local data = Citizen.Await(p)

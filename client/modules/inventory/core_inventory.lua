@@ -17,7 +17,7 @@ function GetItemsWithNameAndLabel()
         return returnData
     elseif Config.Framework == "esx" then
        local p = promise.new()
-        TriggerCallback("snipe-menu:server:getAllItems", function(result)
+        TriggerCallback("sp-adminmenu:server:getAllItems", function(result)
             p:resolve(result)
         end)
         local Items = Citizen.Await(p)
@@ -33,7 +33,7 @@ function GetItemsWithNameAndLabel()
 end
 
 function OpenStash(stashName, owner)
-    TriggerServerEvent("snipe-menu:server:openStash", stashName)
+    TriggerServerEvent("sp-adminmenu:server:openStash", stashName)
 end
 
 -- no information about trunk in core_inventory
@@ -45,9 +45,9 @@ function OpenGlovebox(plate)
 end
 
 function openJobStash(data)
-    TriggerServerEvent("snipe-menu:server:openStash", data.jobStashName)
+    TriggerServerEvent("sp-adminmenu:server:openStash", data.jobStashName)
 end
 
-RegisterNetEvent("snipe-menu:client:openinventory", function(otherPlayer)
+RegisterNetEvent("sp-adminmenu:client:openinventory", function(otherPlayer)
     TriggerServerEvent('core_inventory:server:openInventory', otherPlayer, 'otherplayer', nil, nil, false)
 end)

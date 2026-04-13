@@ -1,5 +1,5 @@
 
-RegisterServerEvent("snipe-menu:server:kickPlayer", function(playerId, reason)
+RegisterServerEvent("sp-adminmenu:server:kickPlayer", function(playerId, reason)
     local src = source
     if src ~= 0 and onlineAdmins[src] then
         SendLogs(src, "bans", Config.Locales["kick_player_used"]..GetPlayerName(playerId).." reason: "..reason)
@@ -9,7 +9,7 @@ RegisterServerEvent("snipe-menu:server:kickPlayer", function(playerId, reason)
     end
 end)
 
-RegisterServerEvent("snipe-menu:server:unbanPlayer", function(id, license)
+RegisterServerEvent("sp-adminmenu:server:unbanPlayer", function(id, license)
     local src = source
     if src ~= 0 and onlineAdmins[src] then
         MySQL.Async.execute('DELETE FROM bans WHERE license = ? ',{license})
@@ -19,7 +19,7 @@ RegisterServerEvent("snipe-menu:server:unbanPlayer", function(id, license)
     end
 end)
 
-CreateCallback("snipe-menu:server:getPlayerInfo", function(source, cb, otherPlayerId)
+CreateCallback("sp-adminmenu:server:getPlayerInfo", function(source, cb, otherPlayerId)
     local src = source
     if not onlineAdmins[src] then
         return
@@ -28,9 +28,9 @@ CreateCallback("snipe-menu:server:getPlayerInfo", function(source, cb, otherPlay
 end)
 
 
-CreateCallback("snipe-menu:server:getAllUniquePlayers", function(source, cb)
+CreateCallback("sp-adminmenu:server:getAllUniquePlayers", function(source, cb)
     if not onlineAdmins[source] then 
-        SendLogs(source, "exploit", "Exploit detected: snipe-menu:server:getAllUniquePlayers")
+        SendLogs(source, "exploit", "Exploit detected: sp-adminmenu:server:getAllUniquePlayers")
         DropPlayer(source, "Exploit detected")
         return
     end
@@ -39,7 +39,7 @@ end)
 
 
 
-RegisterServerEvent("snipe-menu:server:wipePlayer", function(id)
+RegisterServerEvent("sp-adminmenu:server:wipePlayer", function(id)
     local src = source
     if onlineAdmins[src] then
         SendLogs(source, "triggered", Config.Locales["wiped_player"]..id)

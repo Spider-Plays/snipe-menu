@@ -1,7 +1,7 @@
 if Config.Inventory ~= "chezza" then return end
 function GetItemsWithNameAndLabel()
     local p = promise.new()
-    TriggerCallback("snipe-menu:server:getAllItems", function(result)
+    TriggerCallback("sp-adminmenu:server:getAllItems", function(result)
         p:resolve(result)
     end)
     local Items = Citizen.Await(p)
@@ -47,6 +47,6 @@ function openJobStash(data)
     })
 end
 
-RegisterNetEvent("snipe-menu:client:openinventory", function(otherPlayer)
+RegisterNetEvent("sp-adminmenu:client:openinventory", function(otherPlayer)
     TriggerEvent("inventory:openPlayerInventory", otherPlayer, false)
 end)

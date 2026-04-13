@@ -3,7 +3,7 @@ local adminPermsData = {}
 local dutyStatus = {}
 
 local adminDutyTime = {}
-CreateCallback("snipe-menu:server:toggleDuty", function(source, cb)
+CreateCallback("sp-adminmenu:server:toggleDuty", function(source, cb)
     local source = source
     if not source then return end
     if not checkedAdmins[source] then
@@ -38,7 +38,7 @@ CreateCallback("snipe-menu:server:toggleDuty", function(source, cb)
         return
     elseif checkedAdmins[source] and adminPermsData[source] and dutyStatus[source] then
         if enabledAdminTagsList[source] then
-            TriggerClientEvent("snipe-menu:client:toggleAdminTag", -1, source, nil, true)
+            TriggerClientEvent("sp-adminmenu:client:toggleAdminTag", -1, source, nil, true)
             enabledAdminTagsList[source] = nil
         end
         onlineAdmins[source] = nil

@@ -88,7 +88,7 @@ function ExitSpectate()
     end
 
     isTransitioning = false
-    TriggerServerEvent("snipe-menu:server:endSpectate")
+    TriggerServerEvent("sp-adminmenu:server:endSpectate")
 end
 
 -- Thread to follow spectated player
@@ -131,7 +131,7 @@ function CyclePlayer(isNext)
         return
     end
 
-    TriggerServerEvent("snipe-menu:server:cycle", targetServerId, isNext)
+    TriggerServerEvent("sp-adminmenu:server:cycle", targetServerId, isNext)
 end
 
 -- Handle control inputs
@@ -226,16 +226,16 @@ RegisterNUICallback("spectatePlayer", function(data, callback)
         return
     end
 
-    TriggerEvent("snipe-menu:client:forceCloseAdminMenu")
-    TriggerServerEvent("snipe-menu:server:spectatePlayer", targetId)
+    TriggerEvent("sp-adminmenu:client:forceCloseAdminMenu")
+    TriggerServerEvent("sp-adminmenu:server:spectatePlayer", targetId)
     callback("ok")
 end)
 
-RegisterNetEvent("snipe-menu:client:failed", function()
+RegisterNetEvent("sp-adminmenu:client:failed", function()
     -- Empty handler for failed spectate attempts
 end)
 
-RegisterNetEvent("snipe-menu:client:spectatePlayer", function(targetId, coords)
+RegisterNetEvent("sp-adminmenu:client:spectatePlayer", function(targetId, coords)
     if isTransitioning then
         ExitSpectate()
     end
@@ -317,7 +317,7 @@ RegisterNUICallback("spectatePlayer", function(data, callback)
         return
     end
 
-    TriggerEvent("snipe-menu:client:forceCloseAdminMenu")
-    TriggerServerEvent("snipe-menu:server:startSpectating", targetId)
+    TriggerEvent("sp-adminmenu:client:forceCloseAdminMenu")
+    TriggerServerEvent("sp-adminmenu:server:startSpectating", targetId)
     callback("ok")
 end)

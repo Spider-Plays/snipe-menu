@@ -9,7 +9,7 @@ ESX = exports[Config.FrameworkTriggers[Config.Framework].ResourceName]:getShared
 function GetJobsWithNameAndLabel()
     local p = promise.new()
     local returnData = {}
-    TriggerCallback("snipe-menu:server:getAllJobs", function(result)
+    TriggerCallback("sp-adminmenu:server:getAllJobs", function(result)
         p:resolve(result)
     end)
     local Jobs = Citizen.Await(p)
@@ -30,7 +30,7 @@ end
 function GetJobsWithNameAndLabelAndGrades()
     local returnData = {}
     local p = promise.new()
-    TriggerCallback("snipe-menu:server:getAllJobs", function(result)
+    TriggerCallback("sp-adminmenu:server:getAllJobs", function(result)
         p:resolve(result)
     end)
     local Jobs = Citizen.Await(p)
@@ -49,7 +49,7 @@ end
 function GetVehiclesList()
     local returnData = {}
     local p = promise.new()
-    TriggerCallback("snipe-menu:server:getAllVehicles", function(vehicles)
+    TriggerCallback("sp-adminmenu:server:getAllVehicles", function(vehicles)
         p:resolve(vehicles)
     end)
     local vehicles = Citizen.Await(p)

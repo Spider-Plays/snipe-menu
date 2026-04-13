@@ -18,12 +18,12 @@ end
 function OpenStash(stashName, owner)
     if owner ~= "" then
         if not exports.ox_inventory:openInventory('stash', { id = stashName, owner = owner }) then
-            TriggerServerEvent("snipe-menu:server:registerStash", stashName)
+            TriggerServerEvent("sp-adminmenu:server:registerStash", stashName)
             exports.ox_inventory:openInventory('stash', { id = stashName, owner = owner })
         end
     else
         if not exports.ox_inventory:openInventory('stash', stashName) then
-            TriggerServerEvent("snipe-menu:server:registerStash", stashName)
+            TriggerServerEvent("sp-adminmenu:server:registerStash", stashName)
             exports.ox_inventory:openInventory('stash', stashName)
         end
     end
@@ -32,7 +32,7 @@ end
 local isInvOpen = false
 local spawnedVehicle = nil
 function OpenTrunk(vehicle, plate)
-    local model = lib.callback.await('snipe-menu:server:getCarModel', false, plate) or "sultan"
+    local model = lib.callback.await('sp-adminmenu:server:getCarModel', false, plate) or "sultan"
     local myCoords = GetEntityCoords(PlayerPedId())
     RequestModel(GetHashKey(model))
     while not HasModelLoaded(GetHashKey(model)) do
@@ -44,12 +44,12 @@ function OpenTrunk(vehicle, plate)
     FreezeEntityPosition(spawnedVehicle, true)
     SetEntityCoords(spawnedVehicle, myCoords.x, myCoords.y, myCoords.z - 10.0)
     Wait(1000)
-    TriggerServerEvent("snipe-menu:server:forceOpenOxInventory", "trunk", { plate = plate , netid = NetworkGetNetworkIdFromEntity(spawnedVehicle)})
+    TriggerServerEvent("sp-adminmenu:server:forceOpenOxInventory", "trunk", { plate = plate , netid = NetworkGetNetworkIdFromEntity(spawnedVehicle)})
     isInvOpen = true
 end
 
 function OpenGlovebox(plate)
-    local model = lib.callback.await('snipe-menu:server:getCarModel', false, plate) or "sultan"
+    local model = lib.callback.await('sp-adminmenu:server:getCarModel', false, plate) or "sultan"
     local myCoords = GetEntityCoords(PlayerPedId())
     RequestModel(GetHashKey(model))
     while not HasModelLoaded(GetHashKey(model)) do
@@ -61,7 +61,7 @@ function OpenGlovebox(plate)
     FreezeEntityPosition(spawnedVehicle, true)
     SetEntityCoords(spawnedVehicle, myCoords.x, myCoords.y, myCoords.z - 10.0)
     Wait(1000)
-    TriggerServerEvent("snipe-menu:server:forceOpenOxInventory", "glovebox", { plate = plate , netid = NetworkGetNetworkIdFromEntity(spawnedVehicle)})
+    TriggerServerEvent("sp-adminmenu:server:forceOpenOxInventory", "glovebox", { plate = plate , netid = NetworkGetNetworkIdFromEntity(spawnedVehicle)})
     isInvOpen = true
 end
 
@@ -78,6 +78,6 @@ function openJobStash(data)
 
 end
 
-RegisterNetEvent("snipe-menu:client:openinventory", function(otherPlayer)
-    TriggerServerEvent("snipe-menu:server:openInventory", otherPlayer)
+RegisterNetEvent("sp-adminmenu:client:openinventory", function(otherPlayer)
+    TriggerServerEvent("sp-adminmenu:server:openInventory", otherPlayer)
 end)

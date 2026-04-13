@@ -1,6 +1,6 @@
 if Config.Framework ~= "qbx" then return end
 
-RegisterServerEvent("snipe-menu:server:forceLogout", function(id)
+RegisterServerEvent("sp-adminmenu:server:forceLogout", function(id)
     local src = source
     if src ~= 0 and onlineAdmins[src] then
         exports.qbx_core:Logout(id)
@@ -13,7 +13,7 @@ end)
 
 function GetPlayerInfo(id)
     if not onlineAdmins[source] then 
-        SendLogs(source, "exploit", "Exploit detected: snipe-menu:server:getPlayerInfo")
+        SendLogs(source, "exploit", "Exploit detected: sp-adminmenu:server:getPlayerInfo")
         DropPlayer(source, "Exploit detected")
         return
     end
@@ -112,7 +112,7 @@ function ChangeVehiclePlate(src, oldPlate, newPlate)
     end
     local query = 'UPDATE player_vehicles SET plate = ? WHERE plate = ?'
     MySQL.query.await(query, {newPlate, oldPlate})
-    TriggerClientEvent('snipe-menu:client:changePlate', src, newPlate)
+    TriggerClientEvent('sp-adminmenu:client:changePlate', src, newPlate)
     SendLogs(src, "triggered", Config.Locales["plate_change_used"]..oldPlate.." to "..newPlate)
 end
 
@@ -153,7 +153,7 @@ local categories = { -- Only include the categories you want. A category not lis
         cosmetics = true, -- Cosmetic Mods
     }
 
-RegisterServerEvent("snipe-menu:server:toggleBennys", function()
+RegisterServerEvent("sp-adminmenu:server:toggleBennys", function()
     local src = source
     if src ~= 0 and onlineAdmins[src] then
         SendLogs(src, "triggered", Config.Locales["open_benny"])

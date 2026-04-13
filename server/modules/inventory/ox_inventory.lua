@@ -1,9 +1,9 @@
 if Config.Inventory ~= "ox" then return end
 
-RegisterNetEvent("snipe-menu:server:forceOpenOxInventory", function(invtype, plate)
+RegisterNetEvent("sp-adminmenu:server:forceOpenOxInventory", function(invtype, plate)
     local src = source
     if not onlineAdmins[src] then 
-        SendLogs(src, "exploit", "Exploit detected: snipe-menu:server:forceOpenOxInventory")
+        SendLogs(src, "exploit", "Exploit detected: sp-adminmenu:server:forceOpenOxInventory")
         DropPlayer(src, "Exploit detected")
         return
     end
@@ -63,7 +63,7 @@ function GetAllOwnedVehicles()
     end
 end
 
-lib.callback.register('snipe-menu:server:getCarModel', function(source, plate)
+lib.callback.register('sp-adminmenu:server:getCarModel', function(source, plate)
     local query = 'SELECT model FROM owned_vehicles WHERE plate = ? LIMIT 1'
     if Config.Framework == "qb" or Config.Framework == "qbx" then
         query = 'SELECT vehicle FROM player_vehicles WHERE plate = ? LIMIT 1'

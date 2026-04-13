@@ -1,6 +1,6 @@
 if Config.Ambulance ~= "wasabi" then return end
 
-RegisterServerEvent('snipe-menu:server:reviveplayer', function(otherPlayerId)
+RegisterServerEvent('sp-adminmenu:server:reviveplayer', function(otherPlayerId)
     local src = source
     if src ~= 0 and onlineAdmins[src] then
         SendLogs(src, "triggered", Config.Locales["revive_player_used"]..GetPlayerName(otherPlayerId))
@@ -11,7 +11,7 @@ RegisterServerEvent('snipe-menu:server:reviveplayer', function(otherPlayerId)
     end
 end)
 
-RegisterServerEvent('snipe-menu:server:healPlayer', function(otherPlayerId)
+RegisterServerEvent('sp-adminmenu:server:healPlayer', function(otherPlayerId)
     local src = source
     if src ~= 0 and onlineAdmins[src] then
         SendLogs(src, "triggered", Config.Locales["heal_player_used"]..GetPlayerName(otherPlayerId))

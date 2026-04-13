@@ -23,14 +23,14 @@ local function TurnOffAllPanels()
     if noclipActive then
         toggleNoclip2()
     end
-    TriggerEvent("snipe-menu:client:addkeymapping", hasAdminPerms)
-    exports["snipe-menu"]:forceCloseAdminMenu()
+    TriggerEvent("sp-adminmenu:client:addkeymapping", hasAdminPerms)
+    exports["sp-adminmenu"]:forceCloseAdminMenu()
 end
 
 if Config.AdminDuty then
     RegisterCommand("adminduty", function()
         local p = promise.new()
-        TriggerCallback('snipe-menu:server:toggleDuty', function(perm)
+        TriggerCallback('sp-adminmenu:server:toggleDuty', function(perm)
             p:resolve(perm)
         end)
         local dutyResult = Citizen.Await(p)
@@ -47,13 +47,13 @@ if Config.AdminDuty then
         userAccesses = result[2]
         userRole = result[3] or "God"
         isGod = result[4]
-        TriggerEvent("snipe-menu:client:addkeymapping", hasAdminPerms)
+        TriggerEvent("sp-adminmenu:client:addkeymapping", hasAdminPerms)
         ShowNotification("[Admin Menu] You are now on duty", "success")
         SetPlayerAdminClothes()
     end)
     TriggerEvent("chat:removeSuggestion", "/adminduty")
 end
 
-RegisterNetEvent("snipe-menu:client:removeAllPermissions", function()
+RegisterNetEvent("sp-adminmenu:client:removeAllPermissions", function()
     TurnOffAllPanels()
 end)

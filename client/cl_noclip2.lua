@@ -116,7 +116,7 @@ function toggleNoclip2()
         if isInvisible then
             isInvisible = false
             Wait(100)
-            TriggerEvent("snipe-menu:client:invisibleEffect")
+            TriggerEvent("sp-adminmenu:client:invisibleEffect")
         end
     end)
 end

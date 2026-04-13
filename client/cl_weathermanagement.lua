@@ -30,11 +30,11 @@ end)
 
 RegisterNUICallback("setWeather", function(data, callback)
     if hasAdminPerms then
-        TriggerServerEvent("snipe-menu:server:sendLogs", "triggered", "Weather changed to " .. data.selectedValue.name)
+        TriggerServerEvent("sp-adminmenu:server:sendLogs", "triggered", "Weather changed to " .. data.selectedValue.name)
         SetWeather(data.selectedValue.id)
         callback("ok")
     else
-        TriggerServerEvent("snipe-menu:server:sendLogs", "exploit", Config.Locales.weather_change_exploit)
+        TriggerServerEvent("sp-adminmenu:server:sendLogs", "exploit", Config.Locales.weather_change_exploit)
     end
 end)
 
@@ -54,10 +54,10 @@ RegisterNUICallback("setTime", function(data, callback)
             hour = selectedTime
         end
 
-        TriggerServerEvent("snipe-menu:server:sendLogs", "triggered", "Time changed to " .. hour)
+        TriggerServerEvent("sp-adminmenu:server:sendLogs", "triggered", "Time changed to " .. hour)
         SetTime(hour, 0)
         callback("ok")
     else
-        TriggerServerEvent("snipe-menu:server:sendLogs", "exploit", Config.Locales.time_change_exploit)
+        TriggerServerEvent("sp-adminmenu:server:sendLogs", "exploit", Config.Locales.time_change_exploit)
     end
 end)

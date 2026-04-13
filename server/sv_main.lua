@@ -6,9 +6,9 @@ devMode = {}
 enabledAdminTagsList = {}
 adminRoleLabel = {}
 
-CreateCallback("snipe-menu:server:getPlayerList", function(source, callback)
+CreateCallback("sp-adminmenu:server:getPlayerList", function(source, callback)
     if not onlineAdmins[source] then
-        SendLogs(source, "exploit", "Exploit detected: snipe-menu:server:getPlayerList")
+        SendLogs(source, "exploit", "Exploit detected: sp-adminmenu:server:getPlayerList")
         DropPlayer(source, "Exploit detected")
         return
     end
@@ -16,11 +16,11 @@ CreateCallback("snipe-menu:server:getPlayerList", function(source, callback)
     callback(playersTable)
 end)
 
-RegisterServerEvent("snipe-menu:server:toggleDev", function(enabled)
+RegisterServerEvent("sp-adminmenu:server:toggleDev", function(enabled)
     local playerId = source
 
     if not onlineAdmins[playerId] then
-        SendLogs(playerId, "exploit", "Exploit detected: snipe-menu:server:toggleDev")
+        SendLogs(playerId, "exploit", "Exploit detected: sp-adminmenu:server:toggleDev")
         DropPlayer(playerId, "Exploit detected")
         return
     end
@@ -28,11 +28,11 @@ RegisterServerEvent("snipe-menu:server:toggleDev", function(enabled)
     devMode[playerId] = enabled
 end)
 
-CreateCallback("snipe-menu:server:getEnabledAdminTags", function(source, callback)
+CreateCallback("sp-adminmenu:server:getEnabledAdminTags", function(source, callback)
     callback(enabledAdminTagsList)
 end)
 
-RegisterServerEvent("snipe-menu:server:toggleAdminTag", function(enabled)
+RegisterServerEvent("sp-adminmenu:server:toggleAdminTag", function(enabled)
     local playerId = source
 
     if playerId == 0 then
@@ -51,10 +51,10 @@ RegisterServerEvent("snipe-menu:server:toggleAdminTag", function(enabled)
     end
 
     local tagLabel = enabled and adminRoleLabel[playerId] or nil
-    TriggerClientEvent("snipe-menu:client:toggleAdminTag", -1, playerId, tagLabel)
+    TriggerClientEvent("sp-adminmenu:client:toggleAdminTag", -1, playerId, tagLabel)
 end)
 
-RegisterServerEvent("snipe-menu:server:freezeplayer", function(targetId, isUnfreeze)
+RegisterServerEvent("sp-adminmenu:server:freezeplayer", function(targetId, isUnfreeze)
     local playerId = source
 
     if playerId == 0 then
@@ -73,7 +73,7 @@ RegisterServerEvent("snipe-menu:server:freezeplayer", function(targetId, isUnfre
     FreezeEntityPosition(GetPlayerPed(targetId), not isUnfreeze)
 end)
 
-RegisterServerEvent("snipe-menu:server:teleporttoplayer", function(targetId)
+RegisterServerEvent("sp-adminmenu:server:teleporttoplayer", function(targetId)
     local playerId = source
 
     if playerId == targetId then
@@ -91,10 +91,10 @@ RegisterServerEvent("snipe-menu:server:teleporttoplayer", function(targetId)
 
     local targetCoords = GetEntityCoords(GetPlayerPed(targetId))
     SendLogs(playerId, "triggered", Config.Locales.teleport_player_used .. GetPlayerName(targetId))
-    TriggerClientEvent("snipe-menu:client:teleporttoplayer", playerId, targetCoords)
+    TriggerClientEvent("sp-adminmenu:client:teleporttoplayer", playerId, targetCoords)
 end)
 
-RegisterServerEvent("snipe-menu:server:bringPlayer", function(targetId, adminCoords)
+RegisterServerEvent("sp-adminmenu:server:bringPlayer", function(targetId, adminCoords)
     local playerId = source
 
     if playerId == targetId then
@@ -113,10 +113,10 @@ RegisterServerEvent("snipe-menu:server:bringPlayer", function(targetId, adminCoo
     end
 
     SendLogs(playerId, "triggered", Config.Locales.bring_player_used .. GetPlayerName(targetId))
-    TriggerClientEvent("snipe-menu:client:bringPlayer", targetId, playerId, adminCoords)
+    TriggerClientEvent("sp-adminmenu:client:bringPlayer", targetId, playerId, adminCoords)
 end)
 
-RegisterServerEvent("snipe-menu:server:sendBackPlayer", function(targetId)
+RegisterServerEvent("sp-adminmenu:server:sendBackPlayer", function(targetId)
     local playerId = source
 
     if playerId == targetId then
@@ -133,14 +133,14 @@ RegisterServerEvent("snipe-menu:server:sendBackPlayer", function(targetId)
     end
 
     if sendBackCoords[targetId] then
-        TriggerClientEvent("snipe-menu:client:sendBackPlayer", targetId, playerId, sendBackCoords[targetId])
+        TriggerClientEvent("sp-adminmenu:client:sendBackPlayer", targetId, playerId, sendBackCoords[targetId])
         sendBackCoords[targetId] = nil
     else
         ShowNotification(playerId, Config.Locales.no_player_coords, "error")
     end
 end)
 
-RegisterServerEvent("snipe-menu:server:openinventory", function(targetId)
+RegisterServerEvent("sp-adminmenu:server:openinventory", function(targetId)
     local playerId = source
 
     if playerId == targetId then
@@ -158,19 +158,16 @@ RegisterServerEvent("snipe-menu:server:openinventory", function(targetId)
     end
 
     SendLogs(playerId, "triggered", Config.Locales.inventory_open_used .. GetPlayerName(targetId))
-    TriggerClientEvent("snipe-menu:client:openinventory", playerId, targetId)
+    TriggerClientEvent("sp-adminmenu:client:openinventory", playerId, targetId)
 end)
 
-CreateCallback("snipe-menu:server:getAdminPerms", function(source, callback)
+CreateCallback("sp-adminmenu:server:getAdminPerms", function(source, callback)
     if invalid then
         print("^1[Invalid Core] ^0You have You have not selected the right Config.Core in framework.lua ^0!")
         return
     end
 
-    if wrongName then
-        print("^1[Resource Rename] ^0You have renamed the resource. No permissions will work. Please rename it back to ^snipe-menu^0!")
-        return
-    end
+    -- Resource renaming is supported; ensure event/export prefix updates match.
 
     local permissions = HasPerms(source)
     if not permissions then

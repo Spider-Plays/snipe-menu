@@ -1,7 +1,7 @@
-RegisterServerEvent("snipe-menu:server:registerStash", function(name)
+RegisterServerEvent("sp-adminmenu:server:registerStash", function(name)
     local src = source
     if not onlineAdmins[src] then 
-        SendLogs(src, "exploit", "Exploit detected: snipe-menu:server:registerStash")
+        SendLogs(src, "exploit", "Exploit detected: sp-adminmenu:server:registerStash")
         DropPlayer(src, "Exploit detected")
         return
     end
@@ -37,7 +37,7 @@ function GetItemMetadataInfo(src, item, type)
 end
 
 
-RegisterServerEvent("snipe-menu:server:openInventory", function(playerId)
+RegisterServerEvent("sp-adminmenu:server:openInventory", function(playerId)
     local src = source
     if src ~= 0 and onlineAdmins[src] then
         exports.ox_inventory:forceOpenInventory(src, 'player', playerId)
@@ -48,7 +48,7 @@ function string.starts(String,Start)
     return string.sub(String,1,string.len(Start))==Start
 end
 
-RegisterServerEvent('snipe-menu:server:clearInventory', function(otherPlayerId)
+RegisterServerEvent('sp-adminmenu:server:clearInventory', function(otherPlayerId)
     local src = source
     if src ~= 0 and onlineAdmins[src] then
         SendLogs(src, "triggered", Config.Locales["clear_inventory_used"]..GetPlayerName(otherPlayerId))
@@ -59,7 +59,7 @@ RegisterServerEvent('snipe-menu:server:clearInventory', function(otherPlayerId)
     
 end)
 
-RegisterServerEvent("snipe-menu:server:giveItem", function(playerId, giveItem, giveAmount)
+RegisterServerEvent("sp-adminmenu:server:giveItem", function(playerId, giveItem, giveAmount)
     local src = source
     if src ~= 0 and onlineAdmins[src] then
         GiveItemToPlayer(playerId, giveItem, giveAmount, src)
@@ -70,9 +70,9 @@ RegisterServerEvent("snipe-menu:server:giveItem", function(playerId, giveItem, g
     end
 end)
 
-CreateCallback("snipe-menu:server:getAllStashes", function(source, cb)
+CreateCallback("sp-adminmenu:server:getAllStashes", function(source, cb)
     if not onlineAdmins[source] then
-        SendLogs(source, "exploit", "Exploit detected: snipe-menu:server:getAllStashes")
+        SendLogs(source, "exploit", "Exploit detected: sp-adminmenu:server:getAllStashes")
         DropPlayer(source, "Exploit detected")
         return
     end

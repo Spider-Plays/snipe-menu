@@ -33,12 +33,12 @@ function StartSpectating(targetId)
     end
 
     local targetCoords = GetEntityCoords(targetPed)
-    TriggerClientEvent("snipe-menu:client:spectatePlayer", playerId, targetId, targetCoords)
+    TriggerClientEvent("sp-adminmenu:client:spectatePlayer", playerId, targetId, targetCoords)
 
     SendLogs(playerId, "triggered", Config.Locales.spectate_player_used .. "(Source: " .. targetId .. ") " .. GetPlayerName(targetId))
 end
 
-RegisterNetEvent("snipe-menu:server:startSpectating", StartSpectating)
+RegisterNetEvent("sp-adminmenu:server:startSpectating", StartSpectating)
 
 function tableIndexOf(tbl, value)
     for i = 1, #tbl do
@@ -49,7 +49,7 @@ function tableIndexOf(tbl, value)
     return -1
 end
 
-RegisterNetEvent("snipe-menu:server:cycle", function(currentTargetId, isNext)
+RegisterNetEvent("sp-adminmenu:server:cycle", function(currentTargetId, isNext)
     local playerId = source
 
     if not onlineAdmins[playerId] then
@@ -59,7 +59,7 @@ RegisterNetEvent("snipe-menu:server:cycle", function(currentTargetId, isNext)
     local players = GetPlayers()
 
     if #players <= 2 then
-        return TriggerClientEvent("snipe-menu:client:failed", playerId)
+        return TriggerClientEvent("sp-adminmenu:client:failed", playerId)
     end
 
     -- Remove self from player list
@@ -80,7 +80,7 @@ RegisterNetEvent("snipe-menu:server:cycle", function(currentTargetId, isNext)
     StartSpectating(nextTarget)
 end)
 
-RegisterNetEvent("snipe-menu:server:endSpectate", function()
+RegisterNetEvent("sp-adminmenu:server:endSpectate", function()
     local playerId = source
     local playerState = Player(playerId).state
     local returnBucket = playerState.__spectateReturnBucket

@@ -100,7 +100,7 @@ function SendDutyLogs(source, isOnDuty, timeDiff)
 end
 
 
-RegisterServerEvent("snipe-menu:server:sendLogs", function(type, message)
+RegisterServerEvent("sp-adminmenu:server:sendLogs", function(type, message)
     local source = source
     if not onlineAdmins[source] then
         type = "exploit"

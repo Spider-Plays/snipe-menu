@@ -7,32 +7,28 @@ Citizen.CreateThread(function()
     Citizen.Wait(100)
 
     local resourceName = GetCurrentResourceName()
-    if resourceName == "snipe-menu" then
-        local stashData = MySQL.Sync.fetchAll("SELECT * FROM snipe_menu_stashesprop")
+    -- Resource renaming is supported; data is loaded regardless of folder name.
+    local stashData = MySQL.Sync.fetchAll("SELECT * FROM snipe_menu_stashesprop")
 
-        for _, stash in ipairs(stashData) do
-            local coordsData = json.decode(stash.coords)
-            stash.coords = vector3(coordsData.x, coordsData.y, coordsData.z)
+    for _, stash in ipairs(stashData) do
+        local coordsData = json.decode(stash.coords)
+        stash.coords = vector3(coordsData.x, coordsData.y, coordsData.z)
 
-            local rotationData = json.decode(stash.rotation)
-            stash.rotation = rotationData or { x = 0, y = 0, z = 0 }
+        local rotationData = json.decode(stash.rotation)
+        stash.rotation = rotationData or { x = 0, y = 0, z = 0 }
 
-            stash.isJob = (stash.isJob == 1)
-            stash.isGang = (stash.isGang == 1)
+        stash.isJob = (stash.isJob == 1)
+        stash.isGang = (stash.isGang == 1)
 
-            table.insert(ContainerTable, stash)
-        end
-    else
-        print("^1[Resource Rename] ^0You have renamed the resource. No data will be loaded. Please rename it back to ^snipe-menu^0!")
-        wrongName = true
+        table.insert(ContainerTable, stash)
     end
 end)
 
-CreateCallback("snipe-menu:server:getTables", function(source, callback)
+CreateCallback("sp-adminmenu:server:getTables", function(source, callback)
     callback(ContainerTable)
 end)
 
-RegisterNetEvent("snipe-menu:server:moveObject", function(coords, heading, rotation, stashData)
+RegisterNetEvent("sp-adminmenu:server:moveObject", function(coords, heading, rotation, stashData)
     local playerId = source
 
     if playerId ~= 0 and onlineAdmins[playerId] then
@@ -46,19 +42,19 @@ RegisterNetEvent("snipe-menu:server:moveObject", function(coords, heading, rotat
             },
             function(affectedRows)
                 if affectedRows > 0 then
-                    TriggerClientEvent("snipe-menu:client:updateObject", -1, stashData.id, coords, heading, rotation)
+                    TriggerClientEvent("sp-adminmenu:client:updateObject", -1, stashData.id, coords, heading, rotation)
                 end
             end
         )
     end
 end)
 
-RegisterServerEvent("snipe-menu:server:putNewJobStash")
-AddEventHandler("snipe-menu:server:putNewJobStash", function(coords, model, heading, job, size, slots, stashName, isJob, isGang, rotation)
+RegisterServerEvent("sp-adminmenu:server:putNewJobStash")
+AddEventHandler("sp-adminmenu:server:putNewJobStash", function(coords, model, heading, job, size, slots, stashName, isJob, isGang, rotation)
     local playerId = source
 
     if not onlineAdmins[playerId] then
-        SendLogs(playerId, "exploit", "Exploit detected: snipe-menu:server:putNewJobStash")
+        SendLogs(playerId, "exploit", "Exploit detected: sp-adminmenu:server:putNewJobStash")
         DropPlayer(playerId, "Exploit detected")
         return
     end
@@ -114,15 +110,15 @@ AddEventHandler("snipe-menu:server:putNewJobStash", function(coords, model, head
     end
 
     newStash.id = MySQL.Sync.fetchScalar("SELECT id FROM snipe_menu_stashesprop ORDER BY id DESC LIMIT 1")
-    TriggerClientEvent("snipe-menu:client:addNewJobStash", -1, newStash)
+    TriggerClientEvent("sp-adminmenu:client:addNewJobStash", -1, newStash)
 end)
 
-RegisterServerEvent("snipe-menu:server:deleteProp")
-AddEventHandler("snipe-menu:server:deleteProp", function(stashId, stashCoords)
+RegisterServerEvent("sp-adminmenu:server:deleteProp")
+AddEventHandler("sp-adminmenu:server:deleteProp", function(stashId, stashCoords)
     local playerId = source
 
     if not onlineAdmins[playerId] then
-        SendLogs(playerId, "exploit", "Exploit detected: snipe-menu:server:deleteProp")
+        SendLogs(playerId, "exploit", "Exploit detected: sp-adminmenu:server:deleteProp")
         DropPlayer(playerId, "Exploit detected")
         return
     end
@@ -131,7 +127,7 @@ AddEventHandler("snipe-menu:server:deleteProp", function(stashId, stashCoords)
         if stash.coords == stashCoords then
             table.remove(ContainerTable, index)
             MySQL.Async.execute("DELETE FROM snipe_menu_stashesprop WHERE id = @id", { ["@id"] = stashId })
-            TriggerClientEvent("snipe-menu:client:deleteProp", -1, index)
+            TriggerClientEvent("sp-adminmenu:client:deleteProp", -1, index)
             return
         end
     end

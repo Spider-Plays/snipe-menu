@@ -85,7 +85,7 @@ function StartBlipThread()
     blipThread = not blipThread
 end
 
-RegisterNetEvent("snipe-menu:client:blipData", function(blipData)
+RegisterNetEvent("sp-adminmenu:client:blipData", function(blipData)
     for _, player in pairs(blipData) do
         local playerId = GetPlayerFromServerId(player.id)
         UpdatePlayerBlip(playerId, player.name, player.coords, player.heading, player.id)
@@ -97,7 +97,7 @@ function ToggleBlips()
         if not blipThread then
             enabledButtons[#enabledButtons + 1] = "Toggle Blips"
             ShowNotification(Config.Locales.blip_enabled, "success")
-            TriggerServerEvent("snipe-menu:server:blipsStarted", true)
+            TriggerServerEvent("sp-adminmenu:server:blipsStarted", true)
             blipThread = true
         else
             -- Remove from enabled buttons
@@ -108,7 +108,7 @@ function ToggleBlips()
             end
 
             ShowNotification(Config.Locales.blip_disabled, "error")
-            TriggerServerEvent("snipe-menu:server:blipsStarted", false)
+            TriggerServerEvent("sp-adminmenu:server:blipsStarted", false)
             blipThread = false
 
             -- Clean up all blips
@@ -118,13 +118,13 @@ function ToggleBlips()
             playerBlips = {}
         end
     else
-        TriggerServerEvent("snipe-menu:server:sendLogs", "exploit", Config.Locales.blip_exploit)
+        TriggerServerEvent("sp-adminmenu:server:sendLogs", "exploit", Config.Locales.blip_exploit)
     end
 end
 
 function forceCloseBlips()
     if blipThread then
-        TriggerServerEvent("snipe-menu:server:blipsStarted", false)
+        TriggerServerEvent("sp-adminmenu:server:blipsStarted", false)
 
         for _, blipData in pairs(playerBlips) do
             RemoveBlip(blipData.blip)
@@ -135,7 +135,7 @@ function forceCloseBlips()
     end
 end
 
-RegisterNetEvent("snipe-menu:client:toggleNames", function()
+RegisterNetEvent("sp-adminmenu:client:toggleNames", function()
     if hasAdminPerms then
         if not toggleNameThread then
             enabledButtons[#enabledButtons + 1] = "Toggle Names"
@@ -151,7 +151,7 @@ RegisterNetEvent("snipe-menu:client:toggleNames", function()
             ToggleNames()
         end
     else
-        TriggerServerEvent("snipe-menu:server:sendLogs", "exploit", Config.Locales.toggle_name_exploit)
+        TriggerServerEvent("sp-adminmenu:server:sendLogs", "exploit", Config.Locales.toggle_name_exploit)
     end
 end)
 
@@ -162,7 +162,7 @@ RegisterNUICallback("toggleBlips", function(data, callback)
         ToggleBlips()
         callback("ok")
     else
-        TriggerServerEvent("snipe-menu:server:sendLogs", "exploit", Config.Locales.blips_exploit)
+        TriggerServerEvent("sp-adminmenu:server:sendLogs", "exploit", Config.Locales.blips_exploit)
     end
 end)
 
@@ -173,6 +173,6 @@ RegisterNUICallback("toggleNames", function(data, callback)
         ToggleNames()
         callback("ok")
     else
-        TriggerServerEvent("snipe-menu:server:sendLogs", "exploit", Config.Locales.toggle_name_exploit)
+        TriggerServerEvent("sp-adminmenu:server:sendLogs", "exploit", Config.Locales.toggle_name_exploit)
     end
 end)

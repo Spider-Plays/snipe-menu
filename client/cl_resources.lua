@@ -3,7 +3,7 @@
 RegisterNUICallback("getPlayerDataForList", function(data, callback)
     local p = promise.new()
 
-    TriggerCallback("snipe-menu:server:getPlayerDataForList", function(result)
+    TriggerCallback("sp-adminmenu:server:getPlayerDataForList", function(result)
         p:resolve(result)
     end)
 
@@ -21,23 +21,23 @@ RegisterNUICallback("playerListActions", function(data, callback)
     local targetId = tonumber(data.playerId)
 
     if action == "teleport" then
-        TriggerServerEvent("snipe-menu:server:teleporttoplayer", targetId)
+        TriggerServerEvent("sp-adminmenu:server:teleporttoplayer", targetId)
 
     elseif action == "bring" then
         local myCoords = GetEntityCoords(PlayerPedId())
-        TriggerServerEvent("snipe-menu:server:bringPlayer", targetId, myCoords)
+        TriggerServerEvent("sp-adminmenu:server:bringPlayer", targetId, myCoords)
 
     elseif action == "spectate" then
-        TriggerEvent("snipe-menu:client:forceCloseAdminMenu")
-        TriggerServerEvent("snipe-menu:server:startSpectating", targetId)
+        TriggerEvent("sp-adminmenu:client:forceCloseAdminMenu")
+        TriggerServerEvent("sp-adminmenu:server:startSpectating", targetId)
 
     elseif action == "freeze" then
         local targetPed = GetPlayerPed(GetPlayerFromServerId(targetId))
         local isFrozen = IsEntityPositionFrozen(targetPed)
-        TriggerServerEvent("snipe-menu:server:freezeplayer", targetId, isFrozen)
+        TriggerServerEvent("sp-adminmenu:server:freezeplayer", targetId, isFrozen)
 
     elseif action == "send_back" then
-        TriggerServerEvent("snipe-menu:server:sendBackPlayer", targetId)
+        TriggerServerEvent("sp-adminmenu:server:sendBackPlayer", targetId)
     end
 
     callback("ok")
@@ -51,7 +51,7 @@ RegisterNUICallback("getResourceList", function(data, callback)
 
     local p = promise.new()
 
-    TriggerCallback("snipe-menu:server:getResourceList", function(result)
+    TriggerCallback("sp-adminmenu:server:getResourceList", function(result)
         p:resolve(result)
     end)
 
@@ -65,7 +65,7 @@ RegisterNUICallback("startResource", function(data, callback)
         return
     end
 
-    TriggerServerEvent("snipe-menu:server:startResource", data.name)
+    TriggerServerEvent("sp-adminmenu:server:startResource", data.name)
     Wait(1000)
 
     local state = GetResourceState(data.name)
@@ -82,7 +82,7 @@ RegisterNUICallback("stopResource", function(data, callback)
         return
     end
 
-    TriggerServerEvent("snipe-menu:server:stopResource", data.name)
+    TriggerServerEvent("sp-adminmenu:server:stopResource", data.name)
     Wait(1000)
 
     local state = GetResourceState(data.name)
@@ -99,7 +99,7 @@ RegisterNUICallback("restartResource", function(data, callback)
         return
     end
 
-    TriggerServerEvent("snipe-menu:server:restartResource", data.name)
+    TriggerServerEvent("sp-adminmenu:server:restartResource", data.name)
     Wait(1000)
 
     local state = GetResourceState(data.name)
